@@ -33,6 +33,7 @@ import Input from "components/core/form-controls/Input";
 import { phoneRegExp } from "constants/common";
 import axios from "axios";
 import OrderDetails from "./OrderDetails/OrderDetails";
+import { formatCurrencyToVND } from "ulti/formatDate";
 
 const AddressSchema = Yup.object().shape({
   // fullName: Yup.string().required("Full Name is required"),
@@ -157,7 +158,7 @@ const Checkout = () => {
                     <div className="product-info">
                       <p className="product-name">{product.name}</p>
 
-                      <p className="product-price">{product.price}.000</p>
+                      <p className="product-price">{formatCurrencyToVND(product.price)}</p>
                     </div>
                     <button
                       className="product-remove"
@@ -174,7 +175,7 @@ const Checkout = () => {
                       </p>
 
                       <p className="amount">
-                        {product.quantity * product.price}.000
+                        {formatCurrencyToVND(product.quantity * product.price)}
                       </p>
                     </div>
                   </li>
@@ -185,7 +186,7 @@ const Checkout = () => {
             <ul className="total-breakup">
               <li>
                 <h2>Total :</h2>
-                <h2>{total}.000 vnd</h2>
+                <h2>{formatCurrencyToVND(total)}</h2>
               </li>
             </ul>
           </div>

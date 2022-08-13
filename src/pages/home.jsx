@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from "react";
 import ProductCard from "components/Product";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Col, Row } from 'antd';
+
 import {
   ProductsStateContext,
   ProductsDispatchContext,
@@ -41,13 +43,18 @@ const Home = () => {
   }
   return (
     <div className="products-wrapper">
-      <div className="products">
+
+
+      <div className="products ">
+
+
         {isLoaded &&
           productsList.map((data) => {
             return <ProductCard key={data.id} data={data} />;
           })}
+        </div>
       </div>
-    </div>
+
   );
 };
 

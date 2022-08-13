@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Alert from "@mui/material/Alert";
+import { Col, Row } from 'antd';
+import { formatCurrencyToVND } from "ulti/formatDate";
+
+
 
 
 
@@ -34,14 +38,15 @@ const   ProductCard = ({ data }) => {
   };
 
   return (
-    <div className="product row">
-        <div className="col-lg-4">
+    <div className="product col-lg-4">
+
+    <div className="card">
 
       <div className="product-image" style={{ borderRadius: "5px" }}>
         <img src={image} alt={name} />
       </div>
       <h1 className="product-name" style={{marginLeft:"1px", color:"#077915"}}>{name}</h1>
-      <p className="product-price" >{price}.000 vnd</p>
+      <p className="product-price" >{formatCurrencyToVND(price)}</p>
       <div className="product-action">
         <button
          
@@ -63,7 +68,8 @@ const   ProductCard = ({ data }) => {
       </div>
     </div>
 
-      </div>
+    </div>
+
 
 
 

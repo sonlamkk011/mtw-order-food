@@ -11,7 +11,7 @@ import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
-import { formatDate } from "ulti/formatDate";
+import { formatCurrencyToVND, formatDate } from "ulti/formatDate";
 function createData(Products, Pirce, Status) {
   return { Products, Pirce, Status };
 }
@@ -66,7 +66,7 @@ const OrderDetails = () => {
                       <TableCell component="th" scope="row">
                         {item.food.name}
                       </TableCell>
-                      <TableCell align="right">{item.food.price}.000</TableCell>
+                      <TableCell align="right">{formatCurrencyToVND(item.food.price)}</TableCell>
                       <TableCell align="right">{item.quantity}</TableCell>
                       <TableCell align="right">
                       <Moment format="DD/MM/YYYY">

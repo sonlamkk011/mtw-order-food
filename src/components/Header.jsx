@@ -9,6 +9,7 @@ import {
 } from "contexts/cart";
 import { CommonDispatchContext, setSearchKeyword } from "contexts/common";
 import CartPreview from "components/CartPreview";
+import { formatCurrencyToVND } from "ulti/formatDate";
 
 const Header = (props) => {
   const { items: cartItems, isCartOpen } = useContext(CartStateContext);
@@ -87,7 +88,7 @@ const Header = (props) => {
                   <td>Sub Total</td>
                   <td>:</td>
                   <td>
-                    <strong>{cartTotal}.000 </strong>
+                    <strong>{formatCurrencyToVND(cartTotal)} </strong>
                   </td>
                 </tr>
               </tbody>

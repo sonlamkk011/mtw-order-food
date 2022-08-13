@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Alert from "@mui/material/Alert";
+import { formatCurrencyToVND } from "ulti/formatDate";
 
 
 
@@ -58,14 +59,14 @@ const CartPreview = () => {
               <img className="product-image" src={product.image} />
               <div className="product-info">
                 <p className="product-name">{product.name}</p>
-                <p className="product-price">{product.price}.000</p>
+                <p className="product-price">{ formatCurrencyToVND(product.price)}</p>
               </div>
               <div className="product-total">
                 <p className="quantity">
                   {`${product.quantity} ${product.quantity > 1 ? "Nos." : "No."
                     }`}
                 </p>
-                <p className="amount">{product.quantity * product.price}.000 </p>
+                <p className="amount">{formatCurrencyToVND(product.quantity * product.price)} </p>
               </div>
               <button
                 className="product-remove"
