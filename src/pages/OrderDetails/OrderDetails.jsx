@@ -46,7 +46,7 @@ const OrderDetails = () => {
       <div id="order-details">
         <h1 style={{marginBottom:"25px",color:"#077915", fontSize:"50px"}}>Order Details</h1>
         <div>
-          <TableContainer component={Paper} style={{height:"250px", borderRadius:"20px"}}>
+          <TableContainer component={Paper} style={{height:"100%", borderRadius:"20px", width:"80%"}}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <caption style={{ color:"black", fontSize:"20px", fontWeight:"bold"}}>
                 Mặt hàng của bạn đã đc order thành công.
@@ -64,7 +64,7 @@ const OrderDetails = () => {
                 {products?.orderDetails?.map((item) => {
                   return (
                     <TableRow key={item.food.id} style={{}}>
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" style={{fontWeight:"bold"}}>
                         
                         {item.food.name}
                         <div style={{marginTop:"10px"}}>
@@ -74,12 +74,12 @@ const OrderDetails = () => {
 
                       </TableCell>
 
-                      <TableCell align="right">{formatCurrencyToVND(item.food.price)}</TableCell>
-                      <TableCell align="right">{item.quantity}</TableCell>
+                      <TableCell align="right" style={{fontWeight:"bold"}}>{formatCurrencyToVND(item.food.price)}</TableCell>
+                      <TableCell align="right" style={{fontWeight:"bold"}}>{item.quantity}</TableCell>
 
-                      <TableCell align="right">{formatCurrencyToVND(item.food.price*item.quantity)}</TableCell>
+                      <TableCell align="right" style={{fontWeight:"bold"}}>{formatCurrencyToVND(item.food.price*item.quantity)}</TableCell>
                       
-                      <TableCell align="right">
+                      <TableCell align="right" style={{fontWeight:"bold"}}>
                       <Moment format="DD/MM/YYYY">
                         {item.food.createdAt}
                         </Moment>
