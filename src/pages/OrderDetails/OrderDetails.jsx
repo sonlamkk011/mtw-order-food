@@ -49,13 +49,14 @@ const OrderDetails = () => {
           <TableContainer component={Paper} style={{height:"250px", borderRadius:"20px"}}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <caption style={{ color:"black", fontSize:"20px", fontWeight:"bold"}}>
-                Mặt hàng của bạn đã đc order thành công, vui lòng chờ ...
+                Mặt hàng của bạn đã đc order thành công.
               </caption>
               <TableHead>
                 <TableRow style={{backgroundColor:"#6dc778", color:"rgb(237 237 237)"}}>
                   <TableCell style={{fontSize:"20px",fontWeight:"bold"}}>Products</TableCell>
                   <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Price</TableCell>
                   <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Quantity</TableCell>
+                  <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold", marginLeft:"10px"}}>Total</TableCell>
                   <TableCell align="right" style={{fontSize:"20px",fontWeight:"bold"}}>Order Date</TableCell>
                 </TableRow>
               </TableHead>
@@ -64,10 +65,20 @@ const OrderDetails = () => {
                   return (
                     <TableRow key={item.food.id} style={{}}>
                       <TableCell component="th" scope="row">
+                        
                         {item.food.name}
+                        <div style={{marginTop:"10px"}}>
+                        <img src={item.food.image} style={{width:"60px", height:"50px", borderRadius:"10px"}} />
+
+                        </div>
+
                       </TableCell>
+
                       <TableCell align="right">{formatCurrencyToVND(item.food.price)}</TableCell>
                       <TableCell align="right">{item.quantity}</TableCell>
+
+                      <TableCell align="right">{formatCurrencyToVND(item.food.price*item.quantity)}</TableCell>
+                      
                       <TableCell align="right">
                       <Moment format="DD/MM/YYYY">
                         {item.food.createdAt}
