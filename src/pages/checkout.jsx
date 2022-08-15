@@ -68,7 +68,7 @@ const Checkout = () => {
   };
 
   const handleClickOpen = () => {
-    if (fullName || phoneNumber !== "") {
+    if (fullName  && phoneNumber !== "") {
       setOpen(true);
     } else {
       setOpenAlert(true);
@@ -337,7 +337,7 @@ const Checkout = () => {
                             marginTop: -190
                           }}
                         >
-                          Vui lòng nhập thông tin của bạn !
+                          Vui lòng nhập đầy đủ thông tin của bạn !
                         </Alert>
                       </Snackbar>
                     </Stack>

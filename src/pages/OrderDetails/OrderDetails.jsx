@@ -11,7 +11,7 @@ import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
-import { formatCurrencyToVND, formatDate } from "ulti/formatDate";
+import { formatCurrencyToVND } from "ulti/formatDate";
 function createData(Products, Pirce, Status) {
   return { Products, Pirce, Status };
 }
