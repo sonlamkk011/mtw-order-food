@@ -266,7 +266,6 @@ const Checkout = () => {
                         shrink: true
                       }}
                       inputProps={{
-                        step: 300 
                       }}
                       sx={{ width: 150 }}
                     />

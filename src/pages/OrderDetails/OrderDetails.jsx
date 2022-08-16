@@ -107,13 +107,13 @@ const OrderDetails = () => {
                         align="right"
                         style={{ fontSize: "20px", fontWeight: "bold" }}
                       >
-                        Order Time
+                        Order Date
                       </TableCell>
                       <TableCell
                         align="right"
                         style={{ fontSize: "20px", fontWeight: "bold" }}
                       >
-                        Order Date
+                        Delivery Time
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -164,14 +164,16 @@ const OrderDetails = () => {
                             align="right"
                             style={{ fontWeight: "bold" }}
                           >
-                            {item.food.mealTime}
+                            <Moment format="DD/MM/YYYY // HH:mm">
+                              {item.food.mealTime}
+                            </Moment>
                           </TableCell>
                           <TableCell
                             align="right"
                             style={{ fontWeight: "bold" }}
                           >
-                            <Moment format="DD/MM/YYYY">
-                              {item.food.createdAt}
+                            <Moment format="HH:mm ">
+                              {item.food.mealTime}
                             </Moment>
                           </TableCell>
                         </TableRow>
