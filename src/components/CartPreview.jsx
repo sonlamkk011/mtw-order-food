@@ -39,6 +39,7 @@ const CartPreview = () => {
       toggleCartPopup(dispatch);
       history.push("/checkout");
     }
+    
   };
 
   return (

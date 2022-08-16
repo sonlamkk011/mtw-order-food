@@ -55,7 +55,7 @@ const OrderDetails = () => {
         <div className="container" >
           <div className="row">
             <div className="col-lg-12">
-              <TableContainer
+              <TableContainer 
                 component={Paper}
                 style={{ height: "100%", borderRadius: "20px", width: "80%" }}
               >

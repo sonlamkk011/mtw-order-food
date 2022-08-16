@@ -11,6 +11,8 @@ import Slide from "@mui/material/Slide";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Alert, Snackbar, Stack } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import TextField from '@mui/material/TextField';
+
 
 import {
   CheckoutStateContext,
@@ -69,7 +71,7 @@ const Checkout = () => {
   };
 
   const handleClickOpen = () => {
-    if (fullName  && phoneNumber !== "") {
+    if (fullName && phoneNumber !== "") {
       setOpen(true);
     } else {
       setOpenAlert(true);
@@ -99,6 +101,9 @@ const Checkout = () => {
   const handleChangeNote = (ev) => {
     setNote(ev.target.value);
   };
+  const handleChangeOrderTime = (ev) => {
+      setOrderTime(ev.target.value);
+  }
 
   const orderNow = () => {
     setOpenAlerts(true);
@@ -115,6 +120,7 @@ const Checkout = () => {
       body: JSON.stringify({
         foods: newArr,
         fullName: fullName,
+        // mealTime: orderTime,
         note: note,
         phone: phoneNumber
       })
@@ -125,13 +131,12 @@ const Checkout = () => {
       .then((products) => {
         setProducts(products);
         console.log("dasdsadsa", products);
-        localStorage.removeItem("cartItems")
+        localStorage.removeItem("cartItems");
         history.push(`/order-details/${products.id}`);
       })
       .catch((err) => {
         console.log(err);
       });
-
   };
 
   const handleRemove = (items) => {
@@ -143,12 +148,20 @@ const Checkout = () => {
   };
   return (
     <>
-
       <div className="checkout-page">
-      <h1 style={{ marginBottom: "25px", color: "#077915", fontSize: "50px", marginLeft:"500px", marginTop:"150px"}}>Checkout</h1>
+        <h1
+          style={{
+            marginBottom: "25px",
+            color: "#077915",
+            fontSize: "50px",
+            marginLeft: "500px",
+            marginTop: "150px"
+          }}
+        >
+          Checkout
+        </h1>
 
         <div className="container">
-          
           <div className="order-summary">
             <h2>
               Summary
@@ -163,7 +176,9 @@ const Checkout = () => {
                     <div className="product-info">
                       <p className="product-name">{product.name}</p>
 
-                      <p className="product-price">{formatCurrencyToVND(product.price)}</p>
+                      <p className="product-price">
+                        {formatCurrencyToVND(product.price)}
+                      </p>
                     </div>
                     <button
                       className="product-remove"
@@ -239,6 +254,23 @@ const Checkout = () => {
                         style={{ outline: "none" }}
                       />
                     </div>
+                    {/* <div style={{marginBottom:"10px"}}>
+
+                    <TextField
+                      id="time"
+                      label="Thời gian nhận đồ"
+                      type="time"
+                      value={orderTime.value}
+                      onChange={handleChangeOrderTime}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      inputProps={{
+                        step: 300 
+                      }}
+                      sx={{ width: 150 }}
+                    />
+                    </div> */}
                     <Field
                       name="note"
                       type="text"
@@ -355,12 +387,11 @@ const Checkout = () => {
                         <Alert
                           onClose={handleClose}
                           severity="success"
-                          sx={{ 
+                          sx={{
                             width: "100%",
-                            marginLeft:"980px",
-                            marginTop:"-1000px",
-                            
-                         }}
+                            marginLeft: "980px",
+                            marginTop: "-1000px"
+                          }}
                         >
                           Bạn đã order thành công !
                         </Alert>
