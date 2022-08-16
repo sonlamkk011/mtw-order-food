@@ -120,7 +120,7 @@ const Checkout = () => {
       body: JSON.stringify({
         foods: newArr,
         fullName: fullName,
-        // mealTime: orderTime,
+        mealTime: orderTime,
         note: note,
         phone: phoneNumber
       })
@@ -254,7 +254,7 @@ const Checkout = () => {
                         style={{ outline: "none" }}
                       />
                     </div>
-                    {/* <div style={{marginBottom:"10px"}}>
+                    <div style={{marginBottom:"10px"}}>
 
                     <TextField
                       id="time"
@@ -270,7 +270,7 @@ const Checkout = () => {
                       }}
                       sx={{ width: 150 }}
                     />
-                    </div> */}
+                    </div>
                     <Field
                       name="note"
                       type="text"
