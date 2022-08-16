@@ -7,10 +7,13 @@ const CommonLayout = ({ children }) => {
     <>
     
       <Header />
-    <div className="container common-layout" style={{height:"calc(100vh - 230px)"}}>
+      <div style={{height:"calc(100vh - 230px)"}}>
+
+    <div className="container common-layout" >
       <main>{children}</main>
     </div>
     <Footer />
+      </div>
     </>
   );
 };

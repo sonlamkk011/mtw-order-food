@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from "react";
 import ProductCard from "components/Product";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Col, Row } from 'antd';
 
 import {
   ProductsStateContext,
@@ -10,8 +9,6 @@ import {
   getProducts
 } from "contexts/products";
 import { CommonStateContext } from "contexts/common";
-import Header from "components/Header";
-
 const Home = () => {
   const { products, isLoading, isLoaded } = useContext(ProductsStateContext);
   const { searchKeyword } = useContext(CommonStateContext);

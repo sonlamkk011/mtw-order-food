@@ -50,7 +50,9 @@ const OrderDetails = () => {
         >
           Order Details
         </h1>
-        <div className="container" style={{height:"calc(100vh - 340px)"}}>
+        <div style={{height:"calc(100vh - 300px)"}}>
+
+        <div className="container" >
           <div className="row">
             <div className="col-lg-12">
               <TableContainer
@@ -181,11 +183,11 @@ const OrderDetails = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div style={{}}>
-
       <Footer />
+        </div>
       </div>
+     
+
     </>
   );
 };
