@@ -4,11 +4,14 @@ import Footer from "components/Footer";
 
 const CommonLayout = ({ children }) => {
   return (
-    <div className="container common-layout">
+    <>
+    
       <Header />
+    <div className="container common-layout" style={{height:"calc(100vh - 230px)"}}>
       <main>{children}</main>
-      <Footer />
     </div>
+    <Footer />
+    </>
   );
 };
 

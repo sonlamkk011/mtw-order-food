@@ -42,6 +42,7 @@ const App = () => {
                   <Route
                     path="/order-details/:id"
                     component={OrderDetails}
+                    layout={CommonLayout}
                   />
                 </Switch>
               </Router>

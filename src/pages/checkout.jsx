@@ -50,6 +50,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Checkout = () => {
   const [fullName, setfullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [orderTime, setOrderTime] = React.useState("");
   const [note, setNote] = React.useState("");
   const [openAlerts, setOpenAlerts] = React.useState(false);
   const [products, setProducts] = React.useState([]);
@@ -142,8 +143,12 @@ const Checkout = () => {
   };
   return (
     <>
+
       <div className="checkout-page">
+      <h1 style={{ marginBottom: "25px", color: "#077915", fontSize: "50px", marginLeft:"500px", marginTop:"150px"}}>Checkout</h1>
+
         <div className="container">
+          
           <div className="order-summary">
             <h2>
               Summary

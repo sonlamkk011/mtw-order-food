@@ -31,7 +31,7 @@ const Header = (props) => {
 
   return (
     <header>
-      <div className="container">
+      <div className="container d-flex align-items-center">
         <div className="brand">
           <a href="/">
             <h1 className="logo" style={{ marginRight: "50px" }}>

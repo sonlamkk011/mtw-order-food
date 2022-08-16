@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { Formik, Form, Field } from "formik";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import _get from "lodash.get";
 import { AuthDispatchContext, signIn } from "contexts/auth";
 import Input from "components/core/form-controls/Input";
+import { Button } from "antd";
 
 const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required!"),
@@ -33,6 +34,11 @@ const AuthPage = () => {
       history.push("/");
     }
   };
+
+
+  const handleSubmit = () =>{
+    
+  }
 
   return (
     <Formik
@@ -71,15 +77,15 @@ const AuthPage = () => {
               Forgot Password?
             </a>
           </p>
-          <button className="auth-button block" onClick={() => {}}>
+          <Button className="auth-button block" onClick={handleSubmit}>
             Login
-          </button>
+          </Button>
 
           <p>
             New here?{" "}
-            <a href="/#" onClick={goToRegister}>
+            <Link to="/#" onClick={goToRegister}>
               Sign Up Now!
-            </a>
+            </Link>
           </p>
         </Form>
       )}

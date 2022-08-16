@@ -10,6 +10,7 @@ import {
   getProducts
 } from "contexts/products";
 import { CommonStateContext } from "contexts/common";
+import Header from "components/Header";
 
 const Home = () => {
   const { products, isLoading, isLoaded } = useContext(ProductsStateContext);
@@ -31,6 +32,7 @@ const Home = () => {
 
   if (isLoading) {
     return (
+     
       <div className="products-wrapper">
         
         <Stack  sx={{ color: "grey.500" }} spacing={3} direction="row" style={{marginLeft:"500px"}}>
@@ -42,6 +44,8 @@ const Home = () => {
     );
   }
   return (
+    <>
+    
     <div className="products-wrapper">
 
 
@@ -54,6 +58,7 @@ const Home = () => {
           })}
         </div>
       </div>
+    </>
 
   );
 };

@@ -53,7 +53,7 @@ const ProductCard = ({ data }) => {
 
   return (
     <div className="product col-lg-4">
-      <div className="card">
+      <div>
         <div className="product-image" style={{ borderRadius: "5px" }}>
           <img onClick={handleClickOpenImage} src={image} alt={name}></img>
         </div>
