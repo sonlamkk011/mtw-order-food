@@ -36,7 +36,8 @@ const AuthPage = () => {
   };
 
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
+    history.push("/")
     
   }
 

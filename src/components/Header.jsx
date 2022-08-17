@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import {
   CartStateContext,
@@ -10,9 +10,11 @@ import {
 import { CommonDispatchContext, setSearchKeyword } from "contexts/common";
 import CartPreview from "components/CartPreview";
 import { formatCurrencyToVND } from "ulti/formatDate";
+import { Button } from "@mui/material";
 
 const Header = (props) => {
   const { items: cartItems, isCartOpen } = useContext(CartStateContext);
+  const history = useHistory();
   const commonDispatch = useContext(CommonDispatchContext);
   const cartDispatch = useContext(CartDispatchContext);
   const cartQuantity = cartItems.length;
@@ -28,6 +30,9 @@ const Header = (props) => {
     event.preventDefault();
     return toggleCartPopup(cartDispatch);
   };
+  const handleLogin = () => {
+    history.push("/auth");
+  }
 
   return (
     <header>
@@ -109,6 +114,9 @@ const Header = (props) => {
           <CartPreview />
         </div>
       </div>
+      <button onClick={handleLogin} className="login" >
+          Log in
+        </button>
     </header>
   );
 };
