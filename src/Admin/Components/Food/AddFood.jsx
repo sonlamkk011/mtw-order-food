@@ -66,20 +66,20 @@ const tailFormItemLayout = {
 
 const AddFood = () => {
   const [form] = Form.useForm();
-  let navigate = useHistory();
-  const [isRedirectSuccess, setisRedirectSuccess] = useState(false);
-  const [isLoading, serisLoading] = useState(false);
-  // const [content, setcontent] = useState("");
-  const [categoryList, setCategoryList] = useState([]);
-  const [foodList, setFoodList] = useState([]);
-  const [status, setStatus] = useState("");
-  const [category, setCategory] = useState("");
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false)
+  const history = useHistory();
+  const [isRedirectSuccess, setisRedirectSuccess] = React.useState(false);
+  const [isLoading, serisLoading] = React.useState(false);
+  // const [content, setcontent] = React.useState("");
+  const [categoryList, setCategoryList] = React.useState([]);
+  const [foodList, setFoodList] = React.useState([]);
+  const [status, setStatus] = React.useState("");
+  const [category, setCategory] = React.useState("");
+  const [id, setId] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [price, setPrice] = React.useState(0);
+  const [image, setImage] = React.useState("");
+  const [loading, setLoading] = React.useState(false)
 
   const uploadImage = async e => {
     const files = e.target.files
@@ -187,7 +187,7 @@ const AddFood = () => {
       }).catch(err => {
         console.log(err);
       })
-    navigate("/admin/food/list")
+    history.push("/admin/food/list")
   };
 
   const onFinishFailed = (errorInfo) => {

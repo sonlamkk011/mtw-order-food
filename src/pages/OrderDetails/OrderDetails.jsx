@@ -44,7 +44,7 @@ const OrderDetails = () => {
 
   return (
     <>
-      <Header />
+    
 
       <div id="order-details">
         <h1
@@ -186,7 +186,7 @@ const OrderDetails = () => {
               </div>
             </div>
           </div>
-          <Footer />
+       
         </div>
       </div>
     </>

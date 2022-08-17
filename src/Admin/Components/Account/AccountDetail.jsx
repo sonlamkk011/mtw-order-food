@@ -1,19 +1,8 @@
 import {
-  AutoComplete,
   Button,
-  Cascader,
-  Checkbox,
-  Col,
   Form,
   Input,
-  InputNumber,
-  Row,
   Select,
-  Radio,
-  Rate,
-  Slider,
-  Switch,
-  Upload,
 } from 'antd';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import accountService from '../../Service/AccountService';

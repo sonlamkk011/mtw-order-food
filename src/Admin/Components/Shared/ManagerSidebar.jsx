@@ -23,7 +23,7 @@ const ManagerSidebar = () => {
             key: "home",
             icon: <HomeFilled />,
             title: "Trang chủ",
-            link: "/"
+            link: "/admin"
         },
         {
             key: "food",
@@ -70,7 +70,7 @@ const ManagerSidebar = () => {
                     key: "addnewAccount",
                     icon: <IdcardOutlined />,
                     title: "Add New Account",
-                    link: "/admin/account/create"
+                    link: "admin/account/create"
                 },
                 {
                     key: "newsManager",

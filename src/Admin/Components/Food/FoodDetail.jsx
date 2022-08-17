@@ -66,7 +66,7 @@ const tailFormItemLayout = {
 
 const FoodDetail = () => {
   const [form] = Form.useForm();
-  let navigate = useHistory();
+  const history = useHistory();
   // const [isRedirectSuccess, setisRedirectSuccess] = useState(false);
   // const [isLoading, serisLoading] = useState(false);
   // const [content, setcontent] = useState("");
@@ -189,7 +189,7 @@ const FoodDetail = () => {
       }).catch(err => {
         console.log(err);
       })
-    navigate("/admin/food/list");
+      history.push("/admin/food/list");
   };
 
   const onFinishFailed = (errorInfo) => {

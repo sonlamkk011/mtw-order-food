@@ -66,7 +66,7 @@ const tailFormItemLayout = {
 const REGEX_TEL = "^0\\d{9,11}$";
 const AddAccount = () => {
   const [form] = Form.useForm();
-  let navigate = useHistory ();
+  const history = useHistory ();
 
 
 
@@ -88,7 +88,7 @@ const AddAccount = () => {
       }).catch(err => {
         console.log(err);
       })
-    // navigate("/admin/account/list")
+      history.push("/admin/account/list")
   };
 
   const onFinishFailed = (errorInfo) => {

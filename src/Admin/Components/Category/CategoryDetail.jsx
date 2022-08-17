@@ -65,7 +65,7 @@ const tailFormItemLayout = {
 
 const CategoryDetail = () => {
     const [form] = Form.useForm();
-    let navigate = useHistory();
+    const history = useHistory();
 
     const [status, setStatus] = useState("");
     const [category, setCategory] = useState("");
@@ -137,7 +137,7 @@ const CategoryDetail = () => {
             }).catch(err => {
                 console.log(err);
             })
-        navigate("/admin/category/list");
+            history.push("/admin/category/list");
     };
 
     const onFinishFailed = (errorInfo) => {

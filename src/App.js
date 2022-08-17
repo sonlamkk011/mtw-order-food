@@ -25,6 +25,8 @@ import AccountList from "Admin/Components/Account/AccountList";
 import AccountDetail from "Admin/Components/Account/AccountDetail";
 import OrderList from "Admin/Components/Order/OrderList";
 import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
+import Admin from "Admin/Admin";
+import LayoutAdmin from "Admin/Components/Shared/LayoutAdmin";
 
 const App = () => {
   return (
@@ -51,69 +53,35 @@ const App = () => {
                     component={AuthPage}
                     layout={AuthLayout}
                   />
-                  <Route
+                  <RouteWrapper
                     path="/order-details/:id"
                     component={OrderDetails}
                     layout={CommonLayout}
                   />
-                  <Route
+                  <RouteWrapper
                   path="/order-management/:id"
                   component={OrderManagement}
+                  layout={CommonLayout}
+
                   />
-                </Switch>
-              </Router>
-              {/* <Router>
-                <Switch>
-                  <Route 
+                  <RouteWrapper
                   path="/admin"
-                  component={Manager}
+                  component={Admin}
+                  layout={LayoutAdmin}
+                  
                   >
-                    <Route 
+                    
+                  {/* <RouteWrapper
                     path="/admin/food/create"
                     component={AddFood}
-                    />
-                    <Route
-                    path="admin/food/list"
-                    component={FoodList}
-                    />
-                    <Route 
-                    path="admin/food/details/:id"
-                    component={FoodDetail}
-                    />
-                    <Route 
-                    path="admin/category/create"
-                    component={AddCategory}
-                    />
-                    <Route 
-                    path="/admin/category/list"
-                    component={CategoryList}
-                    />
-                     <Route 
-                    path="/admin/category/details/:id"
-                    component={CategoryDetail}
-                    />
-                       <Route 
-                    path="/admin/account/create"
-                    component={AddAccount}
-                    />
-                    <Route 
-                    path="/admin/account/list"
-                    component={AccountList}
-                    />
-                     <Route 
-                    path="/admin/account/details/:id"
-                    component={AccountDetail}
-                    />
-                    <Route 
-                    path="/admin/order/list"
-                    component={OrderList}
-                    />
-
-
-
-                  </Route>
+                  
+                    
+                    /> */}
+                    </RouteWrapper>
+                  
                 </Switch>
-              </Router> */}
+              </Router>
+             
             </CheckoutProvider>
           </CartProvider>
         </ProductsProvider>
