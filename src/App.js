@@ -13,6 +13,17 @@ import HomePage from "pages/home";
 import CheckoutPage from "pages/checkout";
 import "assets/scss/style.scss";
 import OrderDetails from "pages/OrderDetails/OrderDetails";
+import Manager from "Admin/Components/Shared/Layout";
+import AddFood from "Admin/Components/Food/AddFood";
+import FoodList from "Admin/Components/Food/FoodList";
+import FoodDetail from "Admin/Components/Food/FoodDetail";
+import AddCategory from "Admin/Components/Category/AddCategory";
+import CategoryList from "Admin/Components/Category/CategoryList";
+import CategoryDetail from "Admin/Components/Category/CategoryDetail";
+import AddAccount from "Admin/Components/Account/AddAccount";
+import AccountList from "Admin/Components/Account/AccountList";
+import AccountDetail from "Admin/Components/Account/AccountDetail";
+import OrderList from "Admin/Components/Order/OrderList";
 
 const App = () => {
   return (
@@ -46,11 +57,65 @@ const App = () => {
                   />
                 </Switch>
               </Router>
+              {/* <Router>
+                <Switch>
+                  <Route 
+                  path="/admin"
+                  component={Manager}
+                  >
+                    <Route 
+                    path="/admin/food/create"
+                    component={AddFood}
+                    />
+                    <Route
+                    path="admin/food/list"
+                    component={FoodList}
+                    />
+                    <Route 
+                    path="admin/food/details/:id"
+                    component={FoodDetail}
+                    />
+                    <Route 
+                    path="admin/category/create"
+                    component={AddCategory}
+                    />
+                    <Route 
+                    path="/admin/category/list"
+                    component={CategoryList}
+                    />
+                     <Route 
+                    path="/admin/category/details/:id"
+                    component={CategoryDetail}
+                    />
+                       <Route 
+                    path="/admin/account/create"
+                    component={AddAccount}
+                    />
+                    <Route 
+                    path="/admin/account/list"
+                    component={AccountList}
+                    />
+                     <Route 
+                    path="/admin/account/details/:id"
+                    component={AccountDetail}
+                    />
+                    <Route 
+                    path="/admin/order/list"
+                    component={OrderList}
+                    />
+
+
+
+                  </Route>
+                </Switch>
+              </Router> */}
             </CheckoutProvider>
           </CartProvider>
         </ProductsProvider>
       </CommonProvider>
     </AuthProvider>
+
+    
   );
 };
 
