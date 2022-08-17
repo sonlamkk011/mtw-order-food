@@ -164,7 +164,7 @@ const OrderDetails = () => {
                             align="right"
                             style={{ fontWeight: "bold" }}
                           >
-                            <Moment format="DD/MM/YYYY // HH:mm">
+                            <Moment format=" HH:mm  || DD/MM/YYYY">
                               {item.food.mealTime}
                             </Moment>
                           </TableCell>

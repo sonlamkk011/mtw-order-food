@@ -46,7 +46,7 @@ const Home = () => {
     <div className="products-wrapper">
 
 
-      <div className="products ">
+      <div className="products">
 
 
         {isLoaded &&

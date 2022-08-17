@@ -1,21 +1,13 @@
 .product {
   background: $white;
   margin: 16px;
-  width: 250px;
-  border-radius: 9px;
-  display: block;
-  margin: auto;
+  width: 200px;
+  border-radius: 2px;
   .product-image {
-
     overflow: hidden;
     border-radius: 2px 2px 0 0;
-    width: 235px;
-    height: 250px;
-    object-fit: cover;
-    
-    
+    max-height: 200px;
     img {
-     margin: 20px 0px 0px 15px ;
       cursor: zoom-in;
       width: 100%;
       height: auto;
@@ -24,28 +16,23 @@
       @media (min-width: 991px) {
         min-height: 200px;
       }
-      // &:hover {
-      //   transform: scale(1.1);
-      // }
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
   .product-name {
-    margin-top: 20px;
-    float: left;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 20px;
-   
+    margin-bottom: 8px;
   }
   .product-price {
-    // margin-left: -150px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 22px;
-    margin-top: 80px;
-    &:before {
-      content: " ";
-    }
+    margin-bottom: 16px;
+  
   }
   .product-name,
   .product-price {
@@ -55,7 +42,7 @@
   }
   .product-action {
     padding: 16px;
-    button {
+    Button {
       width: 100%;
       transition: all 300ms ease-in;
       &.added {

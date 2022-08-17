@@ -71,7 +71,7 @@ const Checkout = () => {
   };
 
   const handleClickOpen = () => {
-    if (fullName && phoneNumber !== "") {
+    if (fullName && phoneNumber && orderTime !== "") {
       setOpen(true);
     } else {
       setOpenAlert(true);
@@ -389,7 +389,7 @@ const Checkout = () => {
                           sx={{
                             width: "100%",
                             marginLeft: "980px",
-                            marginTop: "-1000px"
+                            marginTop: "-1300px"
                           }}
                         >
                           Bạn đã order thành công !

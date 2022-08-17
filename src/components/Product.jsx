@@ -54,7 +54,7 @@ const ProductCard = ({ data }) => {
   return (
     <div className="product col-lg-4">
       <div>
-        <div className="product-image" style={{ borderRadius: "5px" }}>
+        <div className="product-image" >
           <img onClick={handleClickOpenImage} src={image} alt={name}></img>
         </div>
         <div>
@@ -75,22 +75,23 @@ const ProductCard = ({ data }) => {
         </div>
         <h1
           className="product-name"
-          style={{ marginLeft: "1px", color: "#077915" }}
+          // style={{ marginLeft: "1px", color: "#077915" }}
         >
           {name}
         </h1>
-        <p className="product-price" style={{ marginBottom: "15px" }}>
+        <p className="product-price" >
           {formatCurrencyToVND(price)}
         </p>
         <div className="stepper-input"></div>
         <div className="product-action">
-          <Button
+          <button
             type="button"
             onClick={handleAddToCart}
             className={!isAdded ? "" : "added"}
+            style={{color:"#fff"}}
           >
             {!isAdded ? "ADD TO CART" : "✔  ADDED"}
-          </Button>
+          </button>
         </div>
         <div>
           <Snackbar
