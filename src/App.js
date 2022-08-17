@@ -24,6 +24,7 @@ import AddAccount from "Admin/Components/Account/AddAccount";
 import AccountList from "Admin/Components/Account/AccountList";
 import AccountDetail from "Admin/Components/Account/AccountDetail";
 import OrderList from "Admin/Components/Order/OrderList";
+import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
 
 const App = () => {
   return (
@@ -54,6 +55,10 @@ const App = () => {
                     path="/order-details/:id"
                     component={OrderDetails}
                     layout={CommonLayout}
+                  />
+                  <Route
+                  path="/order-management/:id"
+                  component={OrderManagement}
                   />
                 </Switch>
               </Router>

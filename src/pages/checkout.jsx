@@ -133,6 +133,7 @@ const Checkout = () => {
         console.log("dasdsadsa", products);
         localStorage.removeItem("cartItems");
         history.push(`/order-details/${products.id}`);
+        products.push(`/order-management/${products.id}`);
       })
       .catch((err) => {
         console.log(err);
