@@ -6,6 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Moment from "react-moment";
+import 'moment-timezone';
 
 import Header from "components/Header";
 import "./OrderDetails.scss";
@@ -164,16 +165,16 @@ const OrderDetails = () => {
                             align="right"
                             style={{ fontWeight: "bold" }}
                           >
-                            <Moment format=" HH:mm  || DD/MM/YYYY">
-                              {item.food.mealTime}
+                            <Moment format="DD/MM/YYYY">
+                              {products.createdAt}
                             </Moment>
                           </TableCell>
                           <TableCell
                             align="right"
                             style={{ fontWeight: "bold" }}
                           >
-                            <Moment format="HH:mm ">
-                              {item.food.mealTime}
+                            <Moment format=" HH:mm || DD/MM/YYYY ">
+                              {products.mealTime}
                             </Moment>
                           </TableCell>
                         </TableRow>

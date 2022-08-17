@@ -36,7 +36,8 @@ header {
 }
 // Logo
 .brand .logo {
-  width: 123px;
+  // width: 123px;
+
   color: #077915;
   @media (max-width: 480px) {
     width: 102px;
@@ -46,7 +47,7 @@ header {
 
 // Search Box
 .search {
-  margin-left: 64px;
+  // margin-left: 64px;
   flex-grow: 1;
   -webkit-flex-grow: 1;
   @media (max-width: 767px) {
