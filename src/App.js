@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams
+} from "react-router-dom";
 import AuthProvider from "contexts/auth";
 import CommonProvider from "contexts/common";
 import ProductsProvider from "contexts/products";
@@ -27,6 +32,7 @@ import OrderList from "Admin/Components/Order/OrderList";
 import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
 import Admin from "Admin/Admin";
 import LayoutAdmin from "Admin/Components/Shared/LayoutAdmin";
+import ManagerSidebar from "Admin/Components/Shared/ManagerSidebar";
 
 const App = () => {
   return (
@@ -59,27 +65,23 @@ const App = () => {
                     layout={CommonLayout}
                   />
                   <RouteWrapper
-                  path="/order-management/:id"
-                  component={OrderManagement}
-                  layout={CommonLayout}
-
+                    path="/order-management/:id"
+                    component={OrderManagement}
+                    layout={CommonLayout}
                   />
                 </Switch>
                 <Switch>
                   <Route path='/admin/:path?/:path?' exact>
                   <Manager />
-                    
+
                   </Route>
                 </Switch>
               </Router>
-             
             </CheckoutProvider>
           </CartProvider>
         </ProductsProvider>
       </CommonProvider>
     </AuthProvider>
-
-    
   );
 };
 
