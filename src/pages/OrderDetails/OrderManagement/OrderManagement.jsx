@@ -46,8 +46,6 @@ const OrderManagement = () => {
 
   return (
     <>
-      <Header />
-
       <div id="order-details">
         <h1
           style={{ marginBottom: "25px", color: "#077915", fontSize: "50px" }}
@@ -197,7 +195,6 @@ const OrderManagement = () => {
             </div>
           </div>
         </div>
-      <Footer />
         </div>
       </div>
      

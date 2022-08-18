@@ -31,7 +31,7 @@ const Header = (props) => {
     return toggleCartPopup(cartDispatch);
   };
   const handleLogin = () => {
-    history.push("/auth");
+    // history.push("/auth");
   }
 
   return (
@@ -114,9 +114,9 @@ const Header = (props) => {
           <CartPreview />
         </div>
       </div>
-      <button onClick={handleLogin} className="login" >
+      {/* <button onClick={handleLogin} className="login" >
           Log in
-        </button>
+        </button> */}
     </header>
   );
 };

@@ -64,21 +64,12 @@ const App = () => {
                   layout={CommonLayout}
 
                   />
-                  <RouteWrapper
-                  path="/admin"
-                  component={Admin}
-                  layout={LayoutAdmin}
-                  
-                  >
+                </Switch>
+                <Switch>
+                  <Route path='/admin/:path?/:path?' exact>
+                  <Manager />
                     
-                  {/* <RouteWrapper
-                    path="/admin/food/create"
-                    component={AddFood}
-                  
-                    
-                    /> */}
-                    </RouteWrapper>
-                  
+                  </Route>
                 </Switch>
               </Router>
              
