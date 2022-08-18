@@ -86,12 +86,6 @@ const App = () => {
                       <Route path="/admin/order/list" component={OrderList}/>
                     </Switch>
                   </Route>
-                  {/* <Route path='/user/:path?' exact>
-                    user
-                    <Switch>
-                      <Route path="/user/list" component={OrderList}/>
-                    </Switch>
-                  </Route> */}
                 </Switch>
               </Router>
             </CheckoutProvider>
