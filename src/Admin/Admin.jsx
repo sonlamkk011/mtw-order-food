@@ -19,20 +19,21 @@ import FoodList from "./Components/Food/FoodList";
 const Admin = () => {
   return (
     <>
-      <div>
-        {/* <Manager /> */}
-        <Router>
-          <Switch>
+      <div >
+
+        <Manager />
+        
+          {/* <Switch>
             <Route path="/admin/food/create" exact>
               <AddFood />
             </Route>
-            <Route path="admin/food/list" exact>
+            <Route path="/admin/food/list" exact>
               <FoodList />
             </Route>
-            <Route path="admin/food/details/:id" exact>
+            <Route path="/admin/food/details/:id" exact>
               <FoodDetail />
             </Route>
-            <Route path="admin/category/create" exact>
+            <Route path="/admin/category/create" exact>
               <AddCategory />
             </Route>
             <Route path="/admin/category/list" exact>
@@ -53,8 +54,8 @@ const Admin = () => {
             <Route path="/admin/order/list" exact>
               <OrderList />
             </Route>
-          </Switch>
-        </Router>
+          </Switch> */}
+     
       </div>
     </>
   );

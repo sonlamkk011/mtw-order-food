@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams
+} from "react-router-dom";
 import AuthProvider from "contexts/auth";
 import CommonProvider from "contexts/common";
 import ProductsProvider from "contexts/products";
@@ -27,6 +32,7 @@ import OrderList from "Admin/Components/Order/OrderList";
 import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
 import Admin from "Admin/Admin";
 import LayoutAdmin from "Admin/Components/Shared/LayoutAdmin";
+import ManagerSidebar from "Admin/Components/Shared/ManagerSidebar";
 
 const App = () => {
   return (
@@ -59,36 +65,40 @@ const App = () => {
                     layout={CommonLayout}
                   />
                   <RouteWrapper
-                  path="/order-management/:id"
-                  component={OrderManagement}
-                  layout={CommonLayout}
-
+                    path="/order-management/:id"
+                    component={OrderManagement}
+                    layout={CommonLayout}
                   />
-                  <RouteWrapper
-                  path="/admin"
-                  component={Admin}
-                  layout={LayoutAdmin}
-                  
-                  >
-                    
-                  {/* <RouteWrapper
-                    path="/admin/food/create"
-                    component={AddFood}
-                  
-                    
-                    /> */}
-                    </RouteWrapper>
-                  
+                </Switch>
+                <Switch>
+                  <Route path='/admin/:path?/:path?' exact>
+                  <Manager />
+                    <Switch>
+                      <Route path="/admin/food/create" component={AddFood}/>
+                      <Route path="/admin/food/list" component={FoodList}/>
+                      <Route path="/admin/food/details/:id" component={FoodDetail}/>
+                      <Route path="/admin/category/create" component={AddCategory}/>
+                      <Route path="/admin/category/list" component={CategoryList}/>
+                      <Route path="/admin/category/details/:id" component={CategoryDetail}/>
+                      <Route path="/admin/account/create" component={AddAccount}/>
+                      <Route path="/admin/account/list" component={AccountList}/>
+                      <Route path="/admin/account/details/:id" component={AccountDetail}/>
+                      <Route path="/admin/order/list" component={OrderList}/>
+                    </Switch>
+                  </Route>
+                  {/* <Route path='/user/:path?' exact>
+                    user
+                    <Switch>
+                      <Route path="/user/list" component={OrderList}/>
+                    </Switch>
+                  </Route> */}
                 </Switch>
               </Router>
-             
             </CheckoutProvider>
           </CartProvider>
         </ProductsProvider>
       </CommonProvider>
     </AuthProvider>
-
-    
   );
 };
 
