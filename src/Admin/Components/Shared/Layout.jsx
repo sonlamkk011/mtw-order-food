@@ -37,7 +37,7 @@ const Manager = () => {
                               <Avatar size="large" icon={<UserOutlined />} />
                         ]}
                         >
-                            <Descriptions size="small" column={3}>
+                            {/* <Descriptions size="small" column={3}>
                                 <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
                                 <Descriptions.Item label="Association">
                                     <a>421421</a>
@@ -47,12 +47,12 @@ const Manager = () => {
                                 <Descriptions.Item label="Remarks">
                                     Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
                                 </Descriptions.Item>
-                            </Descriptions>
+                            </Descriptions> */}
                         </PageHeader>
                     </div>
                     <Content style={{ margin: '0 16px' }}>
                         <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                            {/* <Outlet /> */}
+                            
                             <Switch>
                       <Route path="/admin/food/create" component={AddFood}/>
                       <Route path="/admin/food/list" component={FoodList}/>
