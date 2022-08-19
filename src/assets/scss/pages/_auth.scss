@@ -4,6 +4,8 @@
   justify-content: center;
   background: $gray-light-bg;
   min-height: 100vh;
+
+
   .wrapper {
     min-width: 320px;
     text-align: center;
@@ -11,16 +13,47 @@
     border-radius: 16px;
     background: $white;
   }
+
+  .form-username {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+
+  .form-password {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 30px;
+  }
+
+  .auth-button {
+    width: 100%;
+    border-radius: 5px;
+    height: 40px;
+    margin-top: 30px;
+    
+    margin-bottom: 30px;
+  }
+
 }
+
 .auth-brand {
   margin-bottom: 24px;
+
   img {
     max-width: 120px;
   }
-}
-.auth-button {
-  width: 100%;
-  border-radius: 8px;
-  height: 48px;
-  margin: 24px 0;
 }

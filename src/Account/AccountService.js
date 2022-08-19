@@ -1,30 +1,33 @@
-import axios  from "axios";
+import axios from "axios";
 import { BASE_URL_SERVER } from "./server";
 
 
 
 const API_ENDPOINT = {
-  ACCESS_AUTH_TOKEN: "/api/token",
-  USER_LOGIN: "/api/v1/accounts/login",
-  };
+  USER_LOGIN2: "api/v1/accounts/login",
+  REGISTER_ACCOUNT: "api/v1/accounts/register"
+};
 
-  class AccountService {
-    accessAuthToken = async (data) => {
-      return await axios.post(
-        BASE_URL_SERVER + API_ENDPOINT + ACCESS_AUTH_TOKEN,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-    };
+class AccountService {
+  getUser2 = async (accessToken) => {
+    return await axios.post(BASE_URL_SERVER + API_ENDPOINT.USER_LOGIN2)
 
-    
-
-   
-  
   }
-  const accountService = new AccountService();
-  export default accountService ;
+
+
+
+  registerAccount = async (data) => {
+    return await axios.post(BASE_URL_SERVER + API_ENDPOINT.REGISTER_ACCOUNT, data);
+  }
+
+
+
+
+
+
+
+
+
+}
+const accountService = new AccountService();
+export default accountService;

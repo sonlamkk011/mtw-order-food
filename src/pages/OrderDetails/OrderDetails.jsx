@@ -9,15 +9,13 @@ import Moment from "react-moment";
 
 import "moment-timezone";
 
-import Header from "components/Header";
 import "./OrderDetails.scss";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router-dom";
 import { formatCurrencyToVND } from "ulti/formatDate";
-import Footer from "components/Footer";
-function createData(Products, Pirce, Status) {
-  return { Products, Pirce, Status };
-}
+// function createData(Products, Pirce, Status) {
+//   return { Products, Pirce, Status };
+// }
 
 const OrderDetails = () => {
   const [products, setProducts] = useState([]);

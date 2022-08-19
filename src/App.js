@@ -13,26 +13,15 @@ import CheckoutProvider from "contexts/checkout";
 import RouteWrapper from "layouts/RouteWrapper";
 import AuthLayout from "layouts/AuthLayout";
 import CommonLayout from "layouts/CommonLayout";
-import AuthPage from "pages/auth";
 import HomePage from "pages/home";
 import CheckoutPage from "pages/checkout";
 import "assets/scss/style.scss";
 import OrderDetails from "pages/OrderDetails/OrderDetails";
 import Manager from "Admin/Components/Shared/Layout";
-import AddFood from "Admin/Components/Food/AddFood";
-import FoodList from "Admin/Components/Food/FoodList";
-import FoodDetail from "Admin/Components/Food/FoodDetail";
-import AddCategory from "Admin/Components/Category/AddCategory";
-import CategoryList from "Admin/Components/Category/CategoryList";
-import CategoryDetail from "Admin/Components/Category/CategoryDetail";
-import AddAccount from "Admin/Components/Account/AddAccount";
-import AccountList from "Admin/Components/Account/AccountList";
-import AccountDetail from "Admin/Components/Account/AccountDetail";
-import OrderList from "Admin/Components/Order/OrderList";
 import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
-import Admin from "Admin/Admin";
-import LayoutAdmin from "Admin/Components/Shared/LayoutAdmin";
-import ManagerSidebar from "Admin/Components/Shared/ManagerSidebar";
+import { Register } from "Account/Register/Register";
+import AuthPage from "pages/auth";
+
 
 const App = () => {
   return (
@@ -55,10 +44,16 @@ const App = () => {
                     layout={CommonLayout}
                   />
                   <RouteWrapper
-                    path="/auth"
+                    path="/login"
                     component={AuthPage}
                     layout={AuthLayout}
                   />
+                  <RouteWrapper
+                    path="/register"
+                    component={Register}
+                    layout={AuthLayout}
+                  />
+                   
                   <RouteWrapper
                     path="/order-details/:id"
                     component={OrderDetails}
@@ -72,7 +67,7 @@ const App = () => {
                 </Switch>
                 <Switch>
                   <Route path='/admin/:path?/:path?' exact>
-                  <Manager />
+                    <Manager />
 
                   </Route>
                 </Switch>
