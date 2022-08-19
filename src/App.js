@@ -73,7 +73,6 @@ const App = () => {
                 <Switch>
                   <Route path='/admin/:path?/:path?' exact>
                   <Manager />
-
                   </Route>
                 </Switch>
               </Router>

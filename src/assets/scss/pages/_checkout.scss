@@ -1,6 +1,7 @@
 .checkout-page {
   min-height: calc(100vh - 120px);
-  margin-top: 100px;
+  margin-top: 150px;
+  
   .container {
     max-width: 960px;
     margin: 0 auto;
@@ -8,6 +9,7 @@
     display: flex;
     .order-details {
       flex-grow: 1;
+      
       
     }
     .order-summary {
@@ -79,14 +81,17 @@
   }
 }
 .order-details {
+  width: 100%;
   padding: 24px;
   background: $white;
   margin: 24px 24px 24px 0;
   border-radius: 6px;
   z-index: 1;
+
+  
   
 }
-
+// <<============header============>>
 .detail-container {
   margin-top: 24px;
   h2 {
