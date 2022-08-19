@@ -56,7 +56,7 @@ const OrderDetails = () => {
               <div className="col-lg-12">
                 <TableContainer
                   component={Paper}
-                  style={{ height: "100%", borderRadius: "20px", width: "80%" }}
+                  style={{ height: "100%", borderRadius: "20px", width: "100%" }}
                 >
                   <Table sx={{ minWidth: 650 }} aria-label="caption table">
                     <caption

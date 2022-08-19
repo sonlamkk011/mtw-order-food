@@ -149,20 +149,22 @@ const Checkout = () => {
   };
   return (
     <>
-      <div className="checkout-page">
+      <div className="checkout-page container">
+          <div >
+
         <h1
           style={{
             marginBottom: "25px",
             color: "#077915",
             fontSize: "50px",
-            marginLeft: "500px",
-            marginTop: "150px"
+            // marginTop: "150px"
           }}
         >
           Checkout
         </h1>
 
-        <div className="container">
+          <div className="row">
+        <div className="col-lg-4" >
           <div className="order-summary">
             <h2>
               Summary
@@ -211,7 +213,10 @@ const Checkout = () => {
               </li>
             </ul>
           </div>
-          <div className="order-details" style={{ marginLeft: "50px" }}>
+          </div>
+        <div className="col-lg-8">
+
+          <div className="order-details" >
             <div className="detail-container">
               <ul className="timeline"></ul>
               <h2>Personal Information</h2>
@@ -255,9 +260,10 @@ const Checkout = () => {
                         style={{ outline: "none" }}
                       />
                     </div>
-                    <div style={{marginBottom:"10px"}}>
+                    <div  style={{marginBottom:"10px", display:"flex",justifyContent:"center"}}>
 
                     <TextField
+                      
                       id="time"
                       label="Thời gian nhận đồ"
                       type="time"
@@ -269,6 +275,7 @@ const Checkout = () => {
                       inputProps={{
                       }}
                       sx={{ width: 150 }}
+                      style={{display:"flex", justifyContent:"center"}}
                     />
                     </div>
                     <Field
@@ -289,7 +296,7 @@ const Checkout = () => {
                         style={{
                           backgroundColor: "lime",
                           color: "black",
-                          marginTop: "112px"
+                          marginTop: "85px"
                         }}
                       >
                         <i className="rsc-icon-arrow_back" /> Shoping
@@ -404,6 +411,8 @@ const Checkout = () => {
 
             {/* {step === CHECKOUT_STEPS.SHIPPING && <AddressStep />} */}
           </div>
+        </div>
+        </div>
         </div>
       </div>
     </>
