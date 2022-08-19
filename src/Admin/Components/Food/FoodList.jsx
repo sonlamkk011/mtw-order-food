@@ -3,7 +3,7 @@ import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography, messag
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams, withRouter } from 'react-router-dom';
 import foodService from '../../Service/FoodService';
 import { PlusCircleFilled } from '@ant-design/icons';
 
@@ -58,9 +58,17 @@ const FoodList = () => {
   const [foodList, setFoodList] = useState([]);
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
+  const history = useHistory();
+  const id = useParams();
 
   const isEditing = (record) => record.key === editingKey;
 
+
+
+  // const handleDetails = () => {
+  //   history.push(`/admin/food/details/${id}`);
+
+  // }
   const edit = (record) => {
     form.setFieldsValue({
       id: '',
@@ -117,6 +125,7 @@ const FoodList = () => {
     //   })
   }
 
+  
 
   const save = async (key) => {
     try {
@@ -196,7 +205,7 @@ const FoodList = () => {
         ) : (
           <Typography.Link>
             <Link to={`/admin/food/details/${id}`}>
-              <button >Details</button>
+              <button>Details</button>
             </Link>
             <Popconfirm
               title="Title"
@@ -261,4 +270,4 @@ const FoodList = () => {
 };
 
 
-export default FoodList;
+export default withRouter(FoodList);
