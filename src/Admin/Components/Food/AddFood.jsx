@@ -15,8 +15,6 @@ import {
   Switch,
   Upload,
 } from 'antd';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { useEffect } from 'react';
@@ -67,19 +65,11 @@ const tailFormItemLayout = {
 const AddFood = () => {
   const [form] = Form.useForm();
   const history = useHistory();
-  const [isRedirectSuccess, setisRedirectSuccess] = React.useState(false);
-  const [isLoading, serisLoading] = React.useState(false);
-  // const [content, setcontent] = React.useState("");
-  const [categoryList, setCategoryList] = React.useState([]);
-  const [foodList, setFoodList] = React.useState([]);
-  const [status, setStatus] = React.useState("");
-  const [category, setCategory] = React.useState("");
-  const [id, setId] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState(0);
-  const [image, setImage] = React.useState("");
-  const [loading, setLoading] = React.useState(false)
+  const [categoryList, setCategoryList] = useState([]);
+  const [status, setStatus] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const uploadImage = async e => {
     const files = e.target.files
@@ -98,19 +88,6 @@ const AddFood = () => {
     setImage(file.secure_url)
     setLoading(false)
   }
-
-  // const _setValue = (ev, key) => {
-  //   ev.persist();
-  //   this.setState(prevState => {
-  //     prevState.form.dirty = false;
-  //     prevState.form[key] = {
-  //       value: ev.target.value,
-  //       err: this._getInvalidErr(ev.target),
-  //     }
-  //     return prevState;
-  //   });
-  // }
-
   const [foodStatus] = useState([
     {
       key: 1,
@@ -160,24 +137,13 @@ const AddFood = () => {
 
   const onFinish = async (values) => {
     let dataConverted = {
-      // id: values.id,
-      // name: values.name,
-      // slug: values.slug,
-      // description: values.description,
+
       category: { id: values.category },
-      // status: values.status,
-      // price: values.price,
-      // image: image,
       "name": values.name,
       "image": image,
       "price": values.price,
       "description": values.description,
       "status": values.status,
-      // "mealTime": null,
-      // "createdAt": "2022-08-01T10:05:34.677",
-      // "category": {
-      //   "id": 12
-      // }
     };
     console.log(dataConverted)
 
@@ -187,13 +153,12 @@ const AddFood = () => {
       }).catch(err => {
         console.log(err);
       })
-    history.push("/admin/food/list")
+      history.push("/admin/food/list")
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
 
   return (
 
@@ -211,8 +176,7 @@ const AddFood = () => {
         id="name"
         label="name"
         name="name"
-        value={name.value}
-        onChange={(ev) => this._setValue(ev, 'name')}
+        
         rules={[
           {
             required: true,
@@ -225,10 +189,7 @@ const AddFood = () => {
       <Form.Item
         id="price"
         name="price"
-        value={price.value}
         label="Price"
-
-        onChange={(ev) => this._setValue(ev, 'price')}
         rules={[
           {
             required: true,
@@ -247,14 +208,6 @@ const AddFood = () => {
         id="description"
         name="description"
         label="description"
-        value={description.value}
-        onChange={(ev) => this._setValue(ev, 'description')}
-        rules={[
-          {
-            required: true,
-            message: 'Please input description',
-          },
-        ]}
       >
         <Input.TextArea showCount maxLength={100} />
       </Form.Item>
@@ -305,7 +258,6 @@ const AddFood = () => {
         value={image}
 
       >
-
         <div>
           <input type="file" name="file" placeholder="Upload an Image" onChange={uploadImage}
 
@@ -318,19 +270,17 @@ const AddFood = () => {
             <img src={image} style={{ width: '300px' }} />
           )
         }
-
-
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        {/* <Link to={"/list"}> */}
         <Button type="primary" htmlType="submit">
-          Add
+          Add New 
         </Button>
-        {/* </Link> */}
       </Form.Item>
     </Form>
   );
+  
 };
 
 
 export default AddFood;
+
