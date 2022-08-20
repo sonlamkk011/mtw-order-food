@@ -4,13 +4,17 @@ import {
     HomeFilled,
     IdcardOutlined,
     FileSearchOutlined,
-    TeamOutlined
+    TeamOutlined,
+    UnorderedListOutlined,
+    UserAddOutlined,
+    PlusCircleOutlined
 } from '@ant-design/icons';
 import { Image } from 'antd';
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from "react-router-dom";
+
 const { Sider } = Layout;
 
 const ManagerSidebar = () => {
@@ -23,7 +27,7 @@ const ManagerSidebar = () => {
             key: "home",
             icon: <HomeFilled />,
             title: "Trang chủ",
-            link: "/admin"
+            link: "/"
         },
         {
             key: "food",
@@ -31,14 +35,14 @@ const ManagerSidebar = () => {
             children: [
                 {
                     key: "addFood",
-                    icon: <IdcardOutlined />,
+                    icon: <PlusCircleOutlined />,
                     title: "Add New Food",
                     link: "/admin/food/create"
                 },
                 {
                     key: "foodList",
-                    icon: <FileSearchOutlined />,
-                    title: "Danh sach food",
+                    icon: <UnorderedListOutlined />,
+                    title: " Food List",
                     link: "/admin/food/list"
                 },
             ]
@@ -48,14 +52,14 @@ const ManagerSidebar = () => {
             title: "Category",
             children: [
                 {
-                    key: "myinfo",
-                    icon: <IdcardOutlined />,
+                    key: "addCategory",
+                    icon: <PlusCircleOutlined />,
                     title: "Add New Category",
                     link: "/admin/category/create"
                 },
                 {
-                    key: "newsManager",
-                    icon: <FileSearchOutlined />,
+                    key: "categoryList",
+                    icon: <UnorderedListOutlined/>,
                     title: "Category List",
                     link: "/admin/category/list"
                 },
@@ -68,13 +72,13 @@ const ManagerSidebar = () => {
             children: [
                 {
                     key: "addnewAccount",
-                    icon: <IdcardOutlined />,
+                    icon: <UserAddOutlined />,
                     title: "Add New Account",
-                    link: "admin/account/create"
+                    link: "/admin/account/create"
                 },
                 {
-                    key: "newsManager",
-                    icon: <FileSearchOutlined />,
+                    key: "AccountList",
+                    icon: <UnorderedListOutlined />,
                     title: "Account List",
                     link: "/admin/account/list"
                 },
@@ -87,7 +91,7 @@ const ManagerSidebar = () => {
             children: [
                 {
                     key: "order-list",
-                    icon: <IdcardOutlined />,
+                    icon: <UnorderedListOutlined />,
                     title: "Order List",
                     link: "/admin/order/list"
                 },
@@ -100,7 +104,7 @@ const ManagerSidebar = () => {
         <>
             <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                 <Menu theme="dark" defaultSelectedKeys={[location.pathname]} mode="inline">
-                    <Image style={{ width: "100%", padding:"15px", borderRadius:"999px" }} src='https://www.decolore.net/wp-content/uploads/2019/09/food-logo-templates-cover.png' />
+                <Image style={{ width: "100%", padding:"15px", borderRadius:"999px" }} src='https://www.decolore.net/wp-content/uploads/2019/09/food-logo-templates-cover.png' />
                     {items.map((item) =>
                         !item.children ? (
                             <Menu.Item key={item.key}>
@@ -110,7 +114,7 @@ const ManagerSidebar = () => {
                                 </NavLink>
                             </Menu.Item>
                         ) : (
-                            <Menu.SubMenu key={item.key} title={item.title} icon={<UserOutlined />}>
+                            <Menu.SubMenu key={item.key} title={item.title}>
                                 {item.children.map((child) =>
                                     <Menu.Item key={child.key}>
                                         <Link className="d-flex align-items-center" to={child.link}>

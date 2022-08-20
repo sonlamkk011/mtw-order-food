@@ -1,12 +1,14 @@
 
 
-import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography, Space } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import categoryService from '../../Service/CategoryService';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { PlusCircleFilled, SearchOutlined } from '@ant-design/icons';
+import { useRef } from 'react';
+import Highlighter from 'react-highlight-words';
 
 const EditableCell = ({
     editing,
@@ -53,6 +55,10 @@ const CategoryList = () => {
     const [categoryList, setCategoryList] = useState([]);
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
+    const searchInput = useRef(null);
+
 
     const isEditing = (record) => record.key === editingKey;
 
@@ -128,6 +134,106 @@ const CategoryList = () => {
             console.log('Validate Failed:', errInfo);
         }
     };
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+      };
+    
+      const handleReset = (clearFilters,selectedKeys, confirm, dataIndex) => {
+        clearFilters();
+        setSearchText('');
+        confirm({
+          closeDropdown: false,
+        });
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+        
+      };
+      const getColumnSearchProps = (dataIndex) => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+          <div
+            style={{
+              padding: 8,
+            }}
+          >
+            <Input
+              ref={searchInput}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              style={{
+                marginBottom: 8,
+                display: 'block',
+              }}
+            />
+            <Space>
+              <Button
+                type="primary"
+                onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                icon={<SearchOutlined />}
+                size="small"
+                style={{
+                  width: 90,
+                }}
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => clearFilters && handleReset(clearFilters,selectedKeys, confirm, dataIndex)}
+                size="small"
+                style={{
+                  width: 90,
+                }}
+              >
+                Reset
+              </Button>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => {
+                  confirm({
+                    closeDropdown: false,
+                  });
+                  setSearchText(selectedKeys[0]);
+                  setSearchedColumn(dataIndex);
+                }}
+              >
+                Filter
+              </Button>
+            </Space>
+          </div>
+        ),
+        filterIcon: (filtered) => (
+          <SearchOutlined
+            style={{
+              color: filtered ? '#1890ff' : undefined,
+            }}
+          />
+        ),
+        onFilter: (value, record) =>
+          record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => searchInput.current?.select(), 100);
+          }
+        },
+        render: (text) =>
+          searchedColumn === dataIndex ? (
+            <Highlighter
+              highlightStyle={{
+                backgroundColor: '#ffc069',
+                padding: 0,
+              }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text ? text.toString() : ''}
+            />
+          ) : (
+            text
+          ),
+      });
 
     const columns = [
         {
@@ -141,6 +247,7 @@ const CategoryList = () => {
             dataIndex: 'name',
             width: '30%',
             editable: true,
+            ...getColumnSearchProps('name'),
         },
         {
             title: 'Category Status',

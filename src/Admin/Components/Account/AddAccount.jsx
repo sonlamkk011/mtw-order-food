@@ -1,22 +1,12 @@
 import {
-  AutoComplete,
   Button,
-  Cascader,
-  Checkbox,
-  Col,
   Form,
   Input,
-  InputNumber,
-  Row,
   Select,
-  Radio,
-  Rate,
-  Slider,
-  Switch,
-  Upload,
+
 } from 'antd';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import accountService from '../../Service/AccountService';
+import accountService from 'Admin/Service/AccountService';
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { useEffect } from 'react';
@@ -63,10 +53,11 @@ const tailFormItemLayout = {
   },
 };
 
-const REGEX_TEL = "^0\\d{9,11}$";
+// const REGEX_TEL = "^0\\d{9,11}$";
 const AddAccount = () => {
   const [form] = Form.useForm();
   const history = useHistory ();
+
 
 
 
@@ -153,7 +144,7 @@ const AddAccount = () => {
         id="phone"
         name="phone"
         label="Phone Number"
-        pattern={REGEX_TEL}
+        // pattern={REGEX_TEL}
         rules={[
           {
             required: true,
@@ -215,7 +206,7 @@ const AddAccount = () => {
 
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
-          Add
+          Add New
         </Button>
       </Form.Item>
     </Form>

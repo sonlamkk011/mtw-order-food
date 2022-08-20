@@ -1,8 +1,19 @@
 import {
+  AutoComplete,
   Button,
+  Cascader,
+  Checkbox,
+  Col,
   Form,
   Input,
+  InputNumber,
+  Row,
   Select,
+  Radio,
+  Rate,
+  Slider,
+  Switch,
+  Upload,
 } from 'antd';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import accountService from '../../Service/AccountService';
@@ -55,10 +66,10 @@ const tailFormItemLayout = {
 
 const AccountDetail = () => {
   const [form] = Form.useForm();
-  let navigate = useHistory();
+  const history = useHistory();
   const { id } = useParams()
 
-  const [accountStatus] = useState([
+  const [roleStatus] = useState([
     {
       key: 1,
       type: "ADMIN"
@@ -106,7 +117,7 @@ const AccountDetail = () => {
       }).catch(err => {
         console.log(err);
       })
-    navigate("/admin/account/list")
+    history.push("/admin/account/list")
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -128,11 +139,6 @@ const AccountDetail = () => {
       <Form.Item
         label="Id"
         name="id"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
       >
         <Input />
       </Form.Item>
@@ -162,6 +168,7 @@ const AccountDetail = () => {
           },
           { type: "email", message: "Please enter a valid email" },
         ]}
+        hasFeedback
       >
         <Input
           placeholder="Type your email"
@@ -171,7 +178,6 @@ const AccountDetail = () => {
         id="phone"
         name="phone"
         label="Phone Number"
-        // type="tel"
         rules={[
           {
             required: true,
@@ -179,6 +185,7 @@ const AccountDetail = () => {
 
           },
         ]}
+        hasFeedback
       >
         <Input
           placeholder="Type your number"
@@ -188,18 +195,6 @@ const AccountDetail = () => {
         id="password"
         name="password"
         label="New Password"
-
-        // rules={[
-        //   {
-        //     required: true,
-        //   },
-        //   {
-        //     validator: (_, value) =>
-        //       value && value.includes("A")
-        //         ? Promise.resolve()
-        //         : Promise.reject("Password does not match criteria."),
-        //   },
-        // ]}
         hasFeedback
       >
         <Input.Password placeholder="Type your password" />
@@ -208,12 +203,9 @@ const AccountDetail = () => {
       <Form.Item
         id="confirmPassword"
         name="confirmPassword"
-        label="New ConfirmPassword"
+        label=" ConfirmPassword"
         dependencies={["password"]}
         rules={[
-          // {
-          //   required: true,
-          // },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue("password") === value) {
@@ -234,8 +226,8 @@ const AccountDetail = () => {
         label="Role"
       >
         <Select placeholder="select role">
-          {accountStatus.map((item, index) => (
-            <Option key={index} value={item.id}>{item.type}</Option>
+          {roleStatus.map((item, index) => (
+            <Option key={index} value={item.key}>{item.key} - {item.type}</Option>
           ))}
         </Select>
       </Form.Item>
@@ -252,3 +244,18 @@ const AccountDetail = () => {
 
 
 export default AccountDetail;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

@@ -1,10 +1,17 @@
+import {
 
-import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+    PlusCircleOutlined,
+    SearchOutlined
+} from '@ant-design/icons';
+import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography ,Space} from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import accountService from '../../Service/AccountService';
+import accountService from 'Admin/Service/AccountService';
+import Highlighter from 'react-highlight-words';
+
 
 const EditableCell = ({
     editing,
@@ -50,6 +57,9 @@ const AccountList = () => {
     const [accountList, setAccountList] = useState([]);
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
+    const searchInput = useRef(null);
 
     const isEditing = (record) => record.key === editingKey;
 
@@ -73,7 +83,7 @@ const AccountList = () => {
     }, [])
 
     useEffect(() => {
-        console.log(accountList, 'foodList');
+        console.log(accountList, 'accountList');
     }, [accountList])
 
     const getAccountList = async () => {
@@ -88,29 +98,6 @@ const AccountList = () => {
             });
 
     }
-    const DeleteAccount = async (id) => {
-        fetch(`https://order-foods.herokuapp.com/api/v1/accounts/delete/${id}`, {
-            method: "PUT",
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        }).then(res => res.json()).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
-        // await foodService
-        //   .deleteFood(id).then((res) => {
-        //     console.log("success", res.data);
-        //     getFoodList();
-        //   })
-        // window.location.reload("/list");
-    }
-
-
     const save = async (key) => {
         try {
             const row = await form.validateFields();
@@ -132,6 +119,111 @@ const AccountList = () => {
         }
     };
 
+
+    // loc
+
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+      };
+    
+      const handleReset = (clearFilters,selectedKeys, confirm, dataIndex) => {
+        clearFilters();
+        setSearchText('');
+        confirm({
+          closeDropdown: false,
+        });
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+        
+      };
+      const getColumnSearchProps = (dataIndex) => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+          <div
+            style={{
+              padding: 8,
+            }}
+          >
+            <Input
+              ref={searchInput}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              style={{
+                marginBottom: 8,
+                display: 'block',
+              }}
+            />
+            <Space>
+              <Button
+                type="primary"
+                onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                icon={<SearchOutlined />}
+                size="small"
+                style={{
+                  width: 90,
+                }}
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => clearFilters && handleReset(clearFilters,selectedKeys, confirm, dataIndex)}
+                size="small"
+                style={{
+                  width: 90,
+                }}
+              >
+                Reset
+              </Button>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => {
+                  confirm({
+                    closeDropdown: false,
+                  });
+                  setSearchText(selectedKeys[0]);
+                  setSearchedColumn(dataIndex);
+                }}
+              >
+                Filter
+              </Button>
+            </Space>
+          </div>
+        ),
+        filterIcon: (filtered) => (
+          <SearchOutlined
+            style={{
+              color: filtered ? '#1890ff' : undefined,
+            }}
+          />
+        ),
+        onFilter: (value, record) =>
+          record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownVisibleChange: (visible) => {
+          if (visible) {
+            setTimeout(() => searchInput.current?.select(), 100);
+          }
+        },
+        render: (text) =>
+          searchedColumn === dataIndex ? (
+            <Highlighter
+              highlightStyle={{
+                backgroundColor: '#ffc069',
+                padding: 0,
+              }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text ? text.toString() : ''}
+            />
+          ) : (
+            text
+          ),
+      });
+    
+
     const columns = [
         {
             title: 'id',
@@ -144,6 +236,7 @@ const AccountList = () => {
             dataIndex: 'username',
             width: '20%',
             editable: true,
+            ...getColumnSearchProps('username'),
         },
 
         {
@@ -151,12 +244,14 @@ const AccountList = () => {
             dataIndex: 'email',
             width: '30%',
             editable: true,
+            ...getColumnSearchProps('email'),
         },
         {
             title: 'Phone',
             dataIndex: 'phone',
             width: '20%',
             editable: true,
+            ...getColumnSearchProps('phone'),
         },
 
         {
@@ -164,6 +259,8 @@ const AccountList = () => {
             dataIndex: 'role',
             width: '10%',
             editable: true,
+            ...getColumnSearchProps('role'),
+            render:res =>(<>{res == "1" ? "ADMIN" : "USER"}</> )
             
         },
         {
@@ -209,6 +306,11 @@ const AccountList = () => {
 
     return (
         <Form form={form} component={false}>
+            <Link to={"/admin/account/create"} >
+            <div align="right" style={{padding :25}} >
+          <Button type="primary"><PlusCircleOutlined /> Add New</Button>
+        </div>
+            </Link>
 
             <Table
                 components={{
@@ -230,3 +332,4 @@ const AccountList = () => {
 
 
 export default AccountList;
+

@@ -65,19 +65,7 @@ const tailFormItemLayout = {
 const AddCategory = () => {
   const [form] = Form.useForm();
   const history = useHistory();
-  const [isRedirectSuccess, setisRedirectSuccess] = useState(false);
-  const [isLoading, serisLoading] = useState(false);
-  // const [content, setcontent] = useState("");
-  const [categoryList, setCategoryList] = useState([]);
-  const [foodList, setFoodList] = useState([]);
   const [status, setStatus] = useState("");
-  const [category, setCategory] = useState("");
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-
-  const [loading, setLoading] = useState(false)
-
-
   const [categoryStatus] = useState([
     {
       key: 1,
@@ -139,8 +127,6 @@ const AddCategory = () => {
         id="name"
         label="name"
         name="name"
-        value={name.value}
-        onChange={(ev) => this._setValue(ev, 'name')}
         rules={[
           {
             required: true,
@@ -156,6 +142,11 @@ const AddCategory = () => {
         label="Status"
         value={status}
         onChange={handleChangeStatus}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Select placeholder="select status">
           {categoryStatus.map((item, index) => (
@@ -175,3 +166,6 @@ const AddCategory = () => {
 
 
 export default AddCategory;
+
+
+
