@@ -15,7 +15,7 @@ import { Alert, Box, LinearProgress, Snackbar } from "@mui/material";
 
 const AuthPage = () => {
   // const authDispatch = useContext(AuthDispatchContext);
-  // const history = useHistory();
+  const history = useHistory();
   // const location = useLocation();
   const [open, setOpen] = useState(false)
 
@@ -50,7 +50,8 @@ const AuthPage = () => {
       await accountService.getUser2(data)
         .then((res) => {
           localStorage.setItem("access_token", res.data);
-          window.location("/");
+          window.location.replace("/");     
+          
         })
         .catch((err) => {
           console.log(err)
