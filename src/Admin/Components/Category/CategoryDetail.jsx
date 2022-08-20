@@ -1,22 +1,10 @@
 import {
-    AutoComplete,
     Button,
-    Cascader,
-    Checkbox,
-    Col,
     Form,
     Input,
-    InputNumber,
-    Row,
     Select,
-    Radio,
-    Rate,
-    Slider,
-    Switch,
-    Upload,
 } from 'antd';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import categoryService from "../../Service/CategoryService";
+import categoryService from '../../Service/CategoryService';
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { useEffect } from 'react';
@@ -66,15 +54,9 @@ const tailFormItemLayout = {
 const CategoryDetail = () => {
     const [form] = Form.useForm();
     const history = useHistory();
-
     const [status, setStatus] = useState("");
     const [category, setCategory] = useState("");
     const { id } = useParams()
-
-    const [loading, setLoading] = useState(false)
-
-
-
 
     const [categoryStatus] = useState([
         {
@@ -100,8 +82,6 @@ const CategoryDetail = () => {
         getDetails();
 
     }, [])
-
-
 
     const getDetails = async () => {
         await categoryService.getCategoryDetails(id).then((res) => {
@@ -195,7 +175,7 @@ const CategoryDetail = () => {
 
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
-                    Add
+                    Update
                 </Button>
             </Form.Item>
         </Form>
@@ -204,3 +184,15 @@ const CategoryDetail = () => {
 
 
 export default CategoryDetail;
+
+
+
+
+
+
+
+
+
+
+
+
