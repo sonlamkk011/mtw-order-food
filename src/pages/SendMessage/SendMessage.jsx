@@ -1,18 +1,28 @@
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import MessengerCustomerChat from 'react-messenger-customer-chat';
+import { Widget, addResponseMessage } from 'react-chat-widget';
 
+
+import 'react-chat-widget/lib/styles.css';
 
 const SendMessage = () => {
 
-   
+  useEffect(() => {
+    addResponseMessage('Welcome to this **awesome** chat!');
+  }, []);
+
+  const handleNewUserMessage = (newMessage) => {
+    console.log(`New message incoming! ${newMessage}`);
+    // Now send the message throught the backend API
+  };
     return(
         <>
         <div id='send-message'>
-        <MessengerCustomerChat
-        pageId="110645371210018"
-        appId="616053913218417"
-      />
+        <Widget
+          handleNewUserMessage={handleNewUserMessage}
+          title="Support"
+          subtitle="bạn cần hỗ trợ ?"
+        />
         </div>
         </>
     )

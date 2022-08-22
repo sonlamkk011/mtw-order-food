@@ -55,7 +55,6 @@ const Home = () => {
             return <ProductCard key={data.id} data={data} />;
           })}
         </div>
-        <SendMessage/>
       </div>
     </>
 
