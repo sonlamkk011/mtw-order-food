@@ -12,7 +12,6 @@ const SendMessage = () => {
         <MessengerCustomerChat
         pageId="110645371210018"
         appId="616053913218417"
-       
       />
         </div>
         </>
