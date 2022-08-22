@@ -9,6 +9,7 @@ import {
   getProducts
 } from "contexts/products";
 import { CommonStateContext } from "contexts/common";
+import SendMessage from "./SendMessage/SendMessage";
 const Home = () => {
   const { products, isLoading, isLoaded } = useContext(ProductsStateContext);
   const { searchKeyword } = useContext(CommonStateContext);
@@ -54,6 +55,7 @@ const Home = () => {
             return <ProductCard key={data.id} data={data} />;
           })}
         </div>
+        <SendMessage/>
       </div>
     </>
 
