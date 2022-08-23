@@ -30,10 +30,13 @@ const Home = () => {
 
   if (isLoading) {
     return (
-     
       <div className="products-wrapper">
-        
-        <Stack  sx={{ color: "grey.500" }} spacing={3} direction="row" style={{marginLeft:"500px"}}>
+        <Stack
+          sx={{ color: "grey.500" }}
+          spacing={3}
+          direction="row"
+          style={{ marginLeft: "500px" }}
+        >
           <CircularProgress color="secondary" />
           <CircularProgress color="success" />
           <CircularProgress color="inherit" />
@@ -43,21 +46,15 @@ const Home = () => {
   }
   return (
     <>
-    
-    <div className="products-wrapper">
-
-
-      <div className="products">
-
-
-        {isLoaded &&
-          productsList.map((data) => {
-            return <ProductCard key={data.id} data={data} />;
-          })}
+      <div className="products-wrapper">
+        <div className="products">
+          {isLoaded &&
+            productsList.map((data) => {
+              return <ProductCard key={data.id} data={data} />;
+            })}
         </div>
       </div>
     </>
-
   );
 };
 
