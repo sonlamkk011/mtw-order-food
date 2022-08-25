@@ -260,7 +260,7 @@ const Checkout = () => {
                         style={{ outline: "none" }}
                       />
                     </div>
-                    <div  style={{marginBottom:"10px", display:"flex",justifyContent:"center"}}>
+                    <div  style={{marginBottom:"10px"}}>
 
                     <TextField
                       
