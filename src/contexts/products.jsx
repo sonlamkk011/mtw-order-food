@@ -59,7 +59,7 @@ export const getProducts = (dispatch) => {
       dispatch({
         type: "GET_PRODUCTS_SUCCESS",
         payload: {
-          products: response.data.Pageable.content
+          products: response.data.data.Pageable.content
         }
       });
     })

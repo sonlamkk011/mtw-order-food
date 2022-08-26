@@ -21,6 +21,9 @@ import Manager from "Admin/Components/Shared/Layout";
 import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
 import { Register } from "Account/Register/Register";
 import AuthPage from "pages/auth";
+import Checkout2 from "pages/Checkout2";
+import Login from "pages/auth";
+import PhoneSignUp from "pages/PhoneSignUp";
 
 
 const App = () => {
@@ -43,9 +46,14 @@ const App = () => {
                     component={CheckoutPage}
                     layout={CommonLayout}
                   />
+                  <RouteWrapper 
+                  path="/phonesignup"
+                  component={PhoneSignUp}
+                  layout={AuthLayout}
+                  />
                   <RouteWrapper
                     path="/login"
-                    component={AuthPage}
+                    component={Login}
                     layout={AuthLayout}
                   />
                   <RouteWrapper
@@ -64,6 +72,7 @@ const App = () => {
                     component={OrderManagement}
                     layout={CommonLayout}
                   />
+
                 </Switch>
                 <Switch>
                   <Route path='/admin/:path?/:path?' exact>

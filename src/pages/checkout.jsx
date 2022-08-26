@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory, useParams, Redirect } from "react-router-dom";
-import classNames from "classnames";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { Alert, Snackbar, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,34 +7,25 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { Alert, Snackbar, Stack } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
 import TextField from '@mui/material/TextField';
+import React, { useContext } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 
-import {
-  CheckoutStateContext,
-  CheckoutDispatchContext,
-  CHECKOUT_STEPS,
-  setCheckoutStep,
-  saveShippingAddress
-} from "contexts/checkout";
+import Input from "components/core/form-controls/Input";
+import { AuthDispatchContext, AuthStateContext, signOut } from "contexts/auth";
 import {
   CartDispatchContext,
   CartStateContext,
-  removeCart,
-  removeFromCart
+  removeCart
 } from "contexts/cart";
-import { AuthStateContext, AuthDispatchContext, signOut } from "contexts/auth";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import _get from "lodash.get";
-import Input from "components/core/form-controls/Input";
-import { phoneRegExp } from "constants/common";
-import axios from "axios";
-import OrderDetails from "./OrderDetails/OrderDetails";
+import {
+  CheckoutDispatchContext,
+  CHECKOUT_STEPS, saveShippingAddress, setCheckoutStep
+} from "contexts/checkout";
+import { Field, Form, Formik } from "formik";
 import { formatCurrencyToVND } from "ulti/formatDate";
+import * as Yup from "yup";
 
 const AddressSchema = Yup.object().shape({
   // fullName: Yup.string().required("Full Name is required"),
@@ -48,6 +38,7 @@ const AddressSchema = Yup.object().shape({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 const Checkout = () => {
   const [fullName, setfullName] = React.useState("");
@@ -65,6 +56,8 @@ const Checkout = () => {
   const dispatch = useContext(CartDispatchContext);
   const [openalert, setOpenAlert] = React.useState(false);
   let { id } = useParams();
+  const { user, isLoggedIn } = useContext(AuthStateContext);
+  const authDispatch = useContext(AuthDispatchContext);
 
   const handleClick = () => {
     setOpenAlerts(true);
@@ -147,8 +140,19 @@ const Checkout = () => {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
+  const handleGotoLogin = () => {
+    history.push("/login");
+  };
+  const handleLoginAsDiffUser = () => {
+    signOut(authDispatch);
+    history.push("/login");
+  };
+  const handleProceed = () => {
+    setCheckoutStep(checkoutDispatch, CHECKOUT_STEPS.SHIPPING);
+  };
   return (
     <>
+
       <div className="checkout-page container">
           <div >
 
@@ -162,63 +166,42 @@ const Checkout = () => {
         >
           Checkout
         </h1>
+        
 
           <div className="row">
-        <div className="col-lg-4" >
-          <div className="order-summary">
-            <h2>
-              Summary
-              <span>{` (${totalItems}) Items`}</span>
-            </h2>
-            <ul className="cart-items">
-              {items.map((product) => {
-                total += product.quantity * product.price;
-                return (
-                  <li className="cart-item" key={product.name}>
-                    <img className="product-image" src={product.image} />
-                    <div className="product-info">
-                      <p className="product-name">{product.name}</p>
-
-                      <p className="product-price">
-                        {formatCurrencyToVND(product.price)}
-                      </p>
-                    </div>
-                    <button
-                      className="product-remove"
-                      onClick={() => handleRemove(product.id)}
-                    >
-                      ×
-                    </button>
-
-                    <div className="product-total">
-                      <p className="quantity">
-                        {`${product.quantity} ${
-                          product.quantity > 1 ? "Nos." : "No."
-                        }`}
-                      </p>
-
-                      <p className="amount">
-                        {formatCurrencyToVND(product.quantity * product.price)}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <ul className="total-breakup">
-              <li>
-                <h2>Total :</h2>
-                <h2>{formatCurrencyToVND(total)}</h2>
-              </li>
-            </ul>
-          </div>
-          </div>
+     
         <div className="col-lg-8">
 
           <div className="order-details" >
             <div className="detail-container">
               <ul className="timeline"></ul>
+              <div className="detail-container">
+           <h2>Sign In now!</h2>
+           <div className="auth-message">
+             {isLoggedIn ? (
+               <>
+                 <p>
+                   Logged in as <span>{user.username}</span>
+                 </p>
+                 <button onClick={() => handleLoginAsDiffUser()}>
+                   Login as Different User
+                 </button>
+               </>
+             ) : (
+               <>
+                 <p>Please login to continue.</p>
+                 <button onClick={() => handleGotoLogin()}>Login</button>
+               </>
+             )}
+           </div>
+           <div className="actions">
+            
+             <button disabled={!isLoggedIn} onClick={() => handleProceed()}>
+               Proceed
+               <i className="rsc-icon-arrow_forward" />
+             </button>
+           </div>
+         </div>
               <h2>Personal Information</h2>
               <Formik
                 initialValues={{
@@ -412,6 +395,56 @@ const Checkout = () => {
             {/* {step === CHECKOUT_STEPS.SHIPPING && <AddressStep />} */}
           </div>
         </div>
+        <div className="col-lg-4" >
+          <div className="order-summary">
+            <h2>
+              Summary
+              <span>{` (${totalItems}) Items`}</span>
+            </h2>
+            <ul className="cart-items">
+              {items.map((product) => {
+                total += product.quantity * product.price;
+                return (
+                  <li className="cart-item" key={product.name}>
+                    <img className="product-image" src={product.image} />
+                    <div className="product-info">
+                      <p className="product-name">{product.name}</p>
+
+                      <p className="product-price">
+                        {formatCurrencyToVND(product.price)}
+                      </p>
+                    </div>
+                    <button
+                      className="product-remove"
+                      onClick={() => handleRemove(product.id)}
+                    >
+                      ×
+                    </button>
+
+                    <div className="product-total">
+                      <p className="quantity">
+                        {`${product.quantity} ${
+                          product.quantity > 1 ? "Nos." : "No."
+                        }`}
+                      </p>
+
+                      <p className="amount">
+                        {formatCurrencyToVND(product.quantity * product.price)}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <ul className="total-breakup">
+              <li>
+                <h2>Total :</h2>
+                <h2>{formatCurrencyToVND(total)}</h2>
+              </li>
+            </ul>
+          </div>
+          </div>
         </div>
         </div>
       </div>

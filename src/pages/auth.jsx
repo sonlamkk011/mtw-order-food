@@ -1,114 +1,117 @@
-import React, { useContext } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import _get from "lodash.get";
-import { AuthDispatchContext, signIn } from "contexts/auth";
-import { Button } from "antd";
-import accountService from "Account/AccountService";
-import { useState } from "react";
-import { Alert, Box, LinearProgress, Snackbar } from "@mui/material";
+// import React, { useState } from "react";
+// import { Link, useHistory } from "react-router-dom";
+// import GoogleButton from "react-google-button";
+// import { useUserAuth } from "../contexts/UserAuthContext";
+// import { Alert } from "@mui/material";
+// import { Button, Form } from "antd";
+
+import { Button } from "antd"
+import GoogleButton from "react-google-button"
+import { Link } from "react-router-dom"
+
+// const Login = () => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+//   const { logIn, googleSignIn } = useUserAuth();
+//   const history = useHistory();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError("");
+//     try {
+//       await logIn(email, password);
+//       history.push("/home");
+//     } catch (err) {
+//       setError(err.message);
+//     }
+//   };
+
+//   const handleGoogleSignIn = async (e) => {
+//     e.preventDefault();
+//     try {
+//       await googleSignIn();
+//       history.push("/home");
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="p-4 box">
+//         <h2 className="mb-3">Firebase Auth Login</h2>
+//         {error && <Alert variant="danger">{error}</Alert>}
+//         <Form onSubmit={handleSubmit}>
+//           <Form.Group className="mb-3" controlId="formBasicEmail">
+//             <Form.Control
+//               type="email"
+//               placeholder="Email address"
+//               onChange={(e) => setEmail(e.target.value)}
+//             />
+//           </Form.Group>
+
+//           <Form.Group className="mb-3" controlId="formBasicPassword">
+//             <Form.Control
+//               type="password"
+//               placeholder="Password"
+//               onChange={(e) => setPassword(e.target.value)}
+//             />
+//           </Form.Group>
+
+//           <div className="d-grid gap-2">
+//             <Button variant="primary" type="Submit">
+//               Log In
+//             </Button>
+//           </div>
+//         </Form>
+//         <hr />
+//         <div>
+//           <GoogleButton
+//             className="g-btn"
+//             type="dark"
+//             onClick={handleGoogleSignIn}
+//           />
+//         </div>
+//         <Link to="/phonesignup">
+//           <div className="d-grid gap-2 mt-3">
+//             <Button variant="success" type="Submit">
+//               Sign in with Phone
+//             </Button>
+//           </div>
+//         </Link>
+//       </div>
+//       <div className="p-4 box mt-3 text-center">
+//         Don't have an account? <Link to="/signup">Sign up</Link>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default Login;
 
 
 
-
-
-
-
-const AuthPage = () => {
-  // const authDispatch = useContext(AuthDispatchContext);
-  const history = useHistory();
-  // const location = useLocation();
-  const [open, setOpen] = useState(false)
-
-
-
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  // const fromUrl = _get(location, "state.from.pathname");
-
-
-
-  // const signInSuccess = (userData) => {
-  //   signIn(authDispatch, userData);
-  //   if (fromUrl) {
-  //     history.push(fromUrl);
-  //   } else {
-  //     history.push("/");
-  //   }
-  // };
-
-
-
-
-  const handleSubmit2 = async (data) => {
-    if (username == "" && password == "") {
-      setOpen(true)
-    } else {
-      const data = [
-        username = username.value,
-        password = password.value
-      ]
-      await accountService.getUser2(data)
-        .then((res) => {
-          localStorage.setItem("access_token", res.data);
-          window.location.replace("/");     
-          
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-
-  }
-
-
-
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
+const Login = () => {
   return (
     <>
-      <div className="form-login-page">
-        <div className="form-login">
-          <input className="form-username"
-            name="username"
-            type="text"
-            placeholder="User name"
-            required
-            value={username.value}
-            onChange={(ev) => setUsername(ev, "username")}
-          />
-        </div>
-        <div className="password-form">
-          <input
-            className="form-password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            value={password.value}
-            onChange={(ev) => setPassword(ev, "password")}
-          />
-          <Button className="auth-button block" onClick={handleSubmit2}>
-            Login
-          </Button>
-          <p className="title">
-            You don't have an account?{" "}
-            <Link to="/register" >
-              Sign Up Now!
-            </Link>
-          </p>
-        </div>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: '310px', marginTop: - 180, marginLeft: 95 }}>
-            This is an error message!
-          </Alert>
-        </Snackbar>
+      <div>
+        <GoogleButton
+          className="g-btn"
+          type="dark"
+        // onClick={handleGoogleSignIn}
+        />
       </div>
-    </>
-  );
-};
 
-export default AuthPage;
+      <Link to="/phonesignup">
+        <div className="d-grid gap-2 mt-3" >
+          <Button variant="success" type="Submit" >
+            Sign in with Phone
+          </Button>
+        </div>
+      </Link>
+
+    </>
+  )
+}
+export default Login
