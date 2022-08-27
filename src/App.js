@@ -24,6 +24,7 @@ import AuthPage from "pages/auth";
 import Checkout2 from "pages/Checkout2";
 import Login from "pages/auth";
 import PhoneSignUp from "pages/PhoneSignUp";
+import SendOtp from "pages/SendOtp";
 
 
 const App = () => {
@@ -49,6 +50,11 @@ const App = () => {
                   <RouteWrapper 
                   path="/phonesignup"
                   component={PhoneSignUp}
+                  layout={AuthLayout}
+                  />
+                  <RouteWrapper 
+                  path="/verify"
+                  component={SendOtp}
                   layout={AuthLayout}
                   />
                   <RouteWrapper

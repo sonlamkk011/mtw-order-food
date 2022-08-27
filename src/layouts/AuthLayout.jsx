@@ -6,13 +6,13 @@ const AuthLayout = ({ children }) => {
     <div className="auth-container">
       <div className="wrapper">
         <div className="auth-brand">
-          <Link to="/">
+          
             <img
               className="logo"
-              src="https://res.cloudinary.com/sivadass/image/upload/v1493547373/dummy-logo/Veggy.png"
+              src="http://www.epayment.com.ng/images/blog-wp-login-1200x400.png"
               alt="Veggy Brand Logo"
             />
-          </Link>
+       
         </div>
         <div>{children}</div>
       </div>
