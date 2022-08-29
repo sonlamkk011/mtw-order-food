@@ -1,117 +1,113 @@
-// import React, { useState } from "react";
-// import { Link, useHistory } from "react-router-dom";
-// import GoogleButton from "react-google-button";
-// import { useUserAuth } from "../contexts/UserAuthContext";
-// import { Alert } from "@mui/material";
-// import { Button, Form } from "antd";
-
-import { Button } from "antd"
-import GoogleButton from "react-google-button"
-import { Link } from "react-router-dom"
+// import { Button } from "antd"
+// import GoogleButton from "react-google-button"
+// import { Link } from "react-router-dom"
 
 // const Login = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [error, setError] = useState("");
-//   const { logIn, googleSignIn } = useUserAuth();
-//   const history = useHistory();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError("");
-//     try {
-//       await logIn(email, password);
-//       history.push("/home");
-//     } catch (err) {
-//       setError(err.message);
-//     }
-//   };
-
-//   const handleGoogleSignIn = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await googleSignIn();
-//       history.push("/home");
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-
 //   return (
 //     <>
-//       <div className="p-4 box">
-//         <h2 className="mb-3">Firebase Auth Login</h2>
-//         {error && <Alert variant="danger">{error}</Alert>}
-//         <Form onSubmit={handleSubmit}>
-//           <Form.Group className="mb-3" controlId="formBasicEmail">
-//             <Form.Control
-//               type="email"
-//               placeholder="Email address"
-//               onChange={(e) => setEmail(e.target.value)}
-//             />
-//           </Form.Group>
+//       <div>
+//         <GoogleButton
+//           className="g-btn"
+//           type="dark"
+//         // onClick={handleGoogleSignIn}
+//         />
+//       </div>
 
-//           <Form.Group className="mb-3" controlId="formBasicPassword">
-//             <Form.Control
-//               type="password"
-//               placeholder="Password"
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </Form.Group>
-
-//           <div className="d-grid gap-2">
-//             <Button variant="primary" type="Submit">
-//               Log In
-//             </Button>
-//           </div>
-//         </Form>
-//         <hr />
-//         <div>
-//           <GoogleButton
-//             className="g-btn"
-//             type="dark"
-//             onClick={handleGoogleSignIn}
-//           />
+//       <Link to="/phonesignup">
+//         <div className="d-grid gap-2 mt-3" >
+//           <Button variant="success" type="Submit" >
+//             Sign in with Phone
+//           </Button>
 //         </div>
-//         <Link to="/phonesignup">
-//           <div className="d-grid gap-2 mt-3">
-//             <Button variant="success" type="Submit">
-//               Sign in with Phone
-//             </Button>
-//           </div>
-//         </Link>
-//       </div>
-//       <div className="p-4 box mt-3 text-center">
-//         Don't have an account? <Link to="/signup">Sign up</Link>
-//       </div>
+//       </Link>
+
 //     </>
-//   );
-// };
-
-// export default Login;
-
+//   )
+// }
+// export default Login
 
 
-const Login = () => {
+import React, { useContext } from "react";
+import { Formik, Form, Field } from "formik";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import * as Yup from "yup";
+import _get from "lodash.get";
+import { AuthDispatchContext, signIn } from "contexts/auth";
+import Input from "components/core/form-controls/Input";
+import PhoneInput from "react-phone-input-2";
+import { useState } from "react";
+
+const LoginSchema = Yup.object().shape({
+  password: Yup.string().required("Password is required!"),
+  username: Yup.string().required("Mobile Number  required!")
+});
+
+const AuthPage = () => {
+  const authDispatch = useContext(AuthDispatchContext);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const history = useHistory();
+  const location = useLocation();
+  const fromUrl = _get(location, "state.from.pathname");
+  console.log("location => ", location);
+  const goToForgotPassword = (e) => {
+    e.preventDefault();
+  };
+
+  const goToRegister = (e) => {
+    e.preventDefault();
+  };
+
+  const signInSuccess = (userData) => {
+    signIn(authDispatch, userData);
+    if (fromUrl) {
+      history.push(fromUrl);
+    } else {
+      history.push("/");
+    }
+  };
+
   return (
-    <>
-      <div>
-        <GoogleButton
-          className="g-btn"
-          type="dark"
-        // onClick={handleGoogleSignIn}
-        />
-      </div>
+    <Formik
+      initialValues={{
+        username: "",
+        password: ""
+      }}
+      validationSchema={LoginSchema}
+      onSubmit={async (values, { resetForm }) => {
+        try {
+          const userData = { ...values };
+          resetForm();
+          signInSuccess(userData);
+        } catch (err) {
+          console.error(err);
+        }
+      }}
+    >
+      {() => (
+        <Form>
+          <PhoneInput
+            style={{ marginLeft: "25px" }}
+            country={'vn'}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e)}
+           
+          />
 
-      <Link to="/phonesignup">
-        <div className="d-grid gap-2 mt-3" >
-          <Button variant="success" type="Submit" >
-            Sign in with Phone
-          </Button>
-        </div>
-      </Link>
 
-    </>
-  )
-}
-export default Login
+          <button className="auth-button block" onClick={() => { }}>
+            Login
+          </button>
+
+          <p>
+            New here?{" "}
+            <Link to="/register" onClick={goToRegister}>
+              Sign Up Now!
+            </Link>
+          </p>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default AuthPage;

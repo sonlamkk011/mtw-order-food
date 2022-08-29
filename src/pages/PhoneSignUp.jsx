@@ -2,12 +2,15 @@ import { useState } from "react";
 import { authentication } from "./firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
+import TextField from '@mui/material/TextField';
+
 
 
 
 const PhoneSignUp = () => {
     const counttryCode = "+84";
     const [phoneNumber, setPhoneNumber] = useState(counttryCode);
+    const [fullName, setFullName] = useState("");
     const [expandForm, setExpandForm] = useState(false);
     const [OTP, setOTP] = useState('')
 
@@ -61,22 +64,32 @@ const PhoneSignUp = () => {
             <div className='formContainer'>
                 <form onSubmit={requestOtp}>
                     <h1>Sign In With Phone</h1>
+
                     <div className="mb-3">
-                        <label htmlFor="phoneNumberInput" className="form-label"> Phone Number</label>
+                        <label htmlFor="phoneNumberInput" className="form-label"></label>
                         {/* <input type="tel" className="form-control"
                             id="phoneNumberInput"
                             aria-describedby="emailHelp"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)} /> */}
-                          
+                        <div className='mb-3' >
+                        <TextField 
+                        style={{width:"300px"}}
+                        id="outlined-basic" 
+                        label="FullName" 
+                        variant="outlined" 
+                        value={fullName.value}
+                        />
+                        </div>
                         <PhoneInput
+                        style={{marginLeft:"25px"}}
                             country={'vn'}
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e)}
                         />
-                            
-                        <div id="phoneNumberHelp" className="form-text">Please enter your phone number</div>
+
                     </div>
+                        <div id="phoneNumberHelp" className="form-text">Please enter your phone number</div>
                     {expandForm === true ?
                         <>
                             <div className='mb-3'>
@@ -90,7 +103,7 @@ const PhoneSignUp = () => {
                         null
                     }
                     {
-                        expandForm === false?
+                        expandForm === false ?
                             <button type='submit' className='btn btn-primary'>Send OTP</button>
                             :
                             null

@@ -9,6 +9,7 @@ import ProductsProvider from "contexts/products";
 import AuthLayout from "layouts/AuthLayout";
 import CommonLayout from "layouts/CommonLayout";
 import RouteWrapper from "layouts/RouteWrapper";
+import AuthPage from "pages/auth";
 import Login from "pages/auth";
 import CheckoutPage from "pages/checkout";
 import HomePage from "pages/home";
@@ -52,12 +53,12 @@ const App = () => {
                   /> */}
                   <RouteWrapper
                     path="/login"
-                    component={Login}
+                    component={AuthPage}
                     layout={AuthLayout}
                   />
                   <RouteWrapper
                     path="/register"
-                    component={Register}
+                    component={PhoneSignUp}
                     layout={AuthLayout}
                   />
                    
