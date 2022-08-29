@@ -358,7 +358,7 @@ const FoodList = () => {
           },
         }}
         bordered
-        dataSource={foodList.Pageable?.content}
+        dataSource={foodList.data?.Pageable?.content}
         columns={mergedColumns}
         rowClassName="editable-row"
         pagination={{
