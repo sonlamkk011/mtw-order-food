@@ -1,50 +1,103 @@
-import { Alert, Button, Form } from "antd";
-import { useUserAuth } from "contexts/UserAuthContext";
 import { useState } from "react";
-import PhoneInput from "react-phone-input-2";
-import { Link, useHistory } from "react-router-dom";
 import { authentication } from "./firebase";
-import { RecaptchaVerifier } from "firebase/auth";
-
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import PhoneInput from "react-phone-input-2";
+    
 
 
 const PhoneSignUp = () => {
-    const [phone, setPhone] = useState("");
+    const counttryCode = "+84";
+    const [phoneNumber, setPhoneNumber] = useState(counttryCode);
     const [expandForm, setExpandForm] = useState(false);
-    const history = useHistory();
+    const [OTP, setOTP] = useState('')
 
 
-    const handleSendOtp = () => {
-        history.push("/verify")
+
+    const generateRecaptcha = () => {
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+            // 'size': 'invisible',
+            'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+
+            }
+        }, authentication);
     }
 
-
-    const RequestOtp = (e) => {
+    const requestOtp = (e) => {
         e.preventDefault();
-        if (phone.length >= 10) {
+        if (phoneNumber.length >= 10) {
             setExpandForm(true);
+            generateRecaptcha();
+            let appVerifier = window.recaptchaVerifier;
+            signInWithPhoneNumber(authentication, phoneNumber, appVerifier)
+                .then(confirmationResult => {
+                    window.confirmationResult = confirmationResult;
+
+                }).catch((error) => {
+                    // Error; SMS not sent
+                    // ...
+                    console.log(error);
+                });
+        }
+    }
+    const verify = (e) => {
+        let otp = e.target.value;
+        setOTP(otp);
+        if (otp.length === 6) {
+            console.log(otp);
+            let confirmationResult = window.confirmationResult;
+            confirmationResult.confirm(otp).then((result) => {
+                // User signed in successfully.
+                const user = result.user;
+                // ...
+            }).catch((error) => {
+                // User couldn't sign in (bad verification code?)
+                // ...
+            });
         }
     }
     return (
         <>
-            <div className="p-4 box">
-                <h2 className="mb-3">Firebase Phone Auth</h2>
+            <div className='formContainer'>
+                <form onSubmit={requestOtp}>
+                    <h1>Sign In With Phone</h1>
+                    <div className="mb-3">
+                        <label htmlFor="phoneNumberInput" className="form-label"> Phone Number</label>
+                        {/* <input type="tel" className="form-control"
+                            id="phoneNumberInput"
+                            aria-describedby="emailHelp"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)} /> */}
+                          
+                        <PhoneInput
+                            country={'vn'}
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e)}
+                        />
+                            
+                        <div id="phoneNumberHelp" className="form-text">Please enter your phone number</div>
+                    </div>
+                    {expandForm === true ?
+                        <>
+                            <div className='mb-3'>
+                                <label htmlFor='otpInput' className='form-label'>OTP</label>
+                                <input type="number" className="form-control" id="otpInput" value={OTP} onChange={verify} />
+                                {/* <div id='otpHelp' className='form-text'>dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div> */}
+                                <button type='submit' className='btn btn-primary' style={{ marginTop: "10px" }}>Verify</button>
+                            </div>
+                        </>
+                        :
+                        null
+                    }
+                    {
+                        expandForm === false?
+                            <button type='submit' className='btn btn-primary'>Send OTP</button>
+                            :
+                            null
+                    }
+                    <div id='recaptcha-container'></div>
 
-                <Form onSubmit={RequestOtp}>
-                    <PhoneInput
-                        country={'vn'}
-                        value={phone.value}
-                        onChange={phone => setPhone({ phone })}
-                    />
-                </Form>
-
-                <div className="button-right" style={{ marginTop: "20px" }}>
-
-                    <Button type="submit" variant="primary" onClick={handleSendOtp}>
-                        Send Otp
-                    </Button>
-                </div>
-
+                </form>
 
             </div>
         </>
