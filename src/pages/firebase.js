@@ -4,12 +4,13 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDcCpX_wPxrP5XtV-lTLh4Og1YZuR0p02Q",
-    authDomain: "phone-auth-6930d.firebaseapp.com",
-    projectId: "phone-auth-6930d",
-    storageBucket: "phone-auth-6930d.appspot.com",
-    messagingSenderId: "880536493880",
-    appId: "1:880536493880:web:eed6a7c16e8bbb0461abcd"
+    apiKey: "AIzaSyA35gdA45Zr1qMAxJS0-q06iyik3tqk1vo",
+    authDomain: "chat-app-path2.firebaseapp.com",
+    projectId: "chat-app-path2",
+    storageBucket: "chat-app-path2.appspot.com",
+    messagingSenderId: "781990468414",
+    appId: "1:781990468414:web:6449c1feffcf3248522a6f",
+    measurementId: "G-2BHVV0GW4G"
 };
 
 // Initialize Firebase

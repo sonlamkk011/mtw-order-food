@@ -2,7 +2,7 @@ import { useState } from "react";
 import { authentication } from "./firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
-    
+
 
 
 const PhoneSignUp = () => {
@@ -15,7 +15,7 @@ const PhoneSignUp = () => {
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-            // 'size': 'invisible',
+            'size': 'invisible',
             'callback': (response) => {
                 // reCAPTCHA solved, allow signInWithPhoneNumber.
 

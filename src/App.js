@@ -1,30 +1,23 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
+import { Register } from "Account/Register/Register";
+import Manager from "Admin/Components/Shared/Layout";
+import "assets/scss/style.scss";
 import AuthProvider from "contexts/auth";
-import CommonProvider from "contexts/common";
-import ProductsProvider from "contexts/products";
 import CartProvider from "contexts/cart";
 import CheckoutProvider from "contexts/checkout";
-import RouteWrapper from "layouts/RouteWrapper";
+import CommonProvider from "contexts/common";
+import ProductsProvider from "contexts/products";
 import AuthLayout from "layouts/AuthLayout";
 import CommonLayout from "layouts/CommonLayout";
-import HomePage from "pages/home";
-import CheckoutPage from "pages/checkout";
-import "assets/scss/style.scss";
-import OrderDetails from "pages/OrderDetails/OrderDetails";
-import Manager from "Admin/Components/Shared/Layout";
-import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
-import { Register } from "Account/Register/Register";
-import AuthPage from "pages/auth";
-import Checkout2 from "pages/Checkout2";
+import RouteWrapper from "layouts/RouteWrapper";
 import Login from "pages/auth";
+import CheckoutPage from "pages/checkout";
+import HomePage from "pages/home";
+import OrderDetails from "pages/OrderDetails/OrderDetails";
+import OrderManagement from "pages/OrderDetails/OrderManagement/OrderManagement";
 import PhoneSignUp from "pages/PhoneSignUp";
-import SendOtp from "pages/SendOtp";
+import {
+  BrowserRouter as Router, Route, Switch
+} from "react-router-dom";
 
 
 const App = () => {
@@ -52,11 +45,11 @@ const App = () => {
                   component={PhoneSignUp}
                   layout={AuthLayout}
                   />
-                  <RouteWrapper 
-                  path="/verify"
-                  component={SendOtp}
+                  {/* <RouteWrapper 
+                  path="/test"
+                  component={TestPhone}
                   layout={AuthLayout}
-                  />
+                  /> */}
                   <RouteWrapper
                     path="/login"
                     component={Login}
@@ -84,6 +77,7 @@ const App = () => {
                   <Route path='/admin/:path?/:path?' exact>
                   <Manager />
                   </Route>
+                 
                 </Switch>
               </Router>
             </CheckoutProvider>
