@@ -134,7 +134,6 @@ const Checkout = () => {
   };
 
   const handleRemoveItem = (items) => {
-     
 
   }
   const handleRemove = (items) => {
@@ -395,7 +394,6 @@ const Checkout = () => {
                     )}
                   </Formik>
                 </div>
-
                 {/* {step === CHECKOUT_STEPS.SHIPPING && <AddressStep />} */}
               </div>
             </div>
@@ -413,15 +411,22 @@ const Checkout = () => {
                         <img className="product-image" src={product.image} />
                         <div className="product-info">
                           <p className="product-name">{product.name}</p>
-
                           <p className="product-price">
                             {formatCurrencyToVND(product.price)}
                           </p>
                         </div>
-                        <div className="stepper-input"  >
-                          <a href="#" class="decrement" onClick={handleRemoveItem}>–</a>
-                          <input type="number" className="quantity" value={product.quantity}></input>
-                          <a href="#" className="increment">+</a>
+                        <div className="stepper-input" style={{marginRight:"25px"}}>
+                          <button style={{borderRadius:"999px"}} onClick={handleRemoveItem}>–</button>
+                          <input
+                            type="number"
+                            className="quantity"
+                            value={product.quantity}
+                            style={{borderRadius:"999px", height:"40px"}}
+                            >
+                            
+
+                             </input>
+                          <button style={{borderRadius:"999px"}} >+</button>
                         </div>
                         <button
                           className="product-remove"
@@ -459,5 +464,4 @@ const Checkout = () => {
     </>
   );
 };
-
 export default Checkout;

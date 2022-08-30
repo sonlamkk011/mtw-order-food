@@ -146,7 +146,6 @@ const AddFood = () => {
       "status": values.status,
     };
     console.log(dataConverted)
-
     axios.post(`https://order-foods.herokuapp.com/api/v1/foods/create`, dataConverted)
       .then(res => {
         console.log(res.data);
@@ -161,7 +160,6 @@ const AddFood = () => {
   };
 
   return (
-
     <Form
       {...formItemLayout}
       form={form}
@@ -211,7 +209,6 @@ const AddFood = () => {
       >
         <Input.TextArea showCount maxLength={100} />
       </Form.Item>
-
       <Form.Item
         id="category"
         name="category"
@@ -282,5 +279,5 @@ const AddFood = () => {
 };
 
 
-export default AddFood;
+export default AddFood; 
 
