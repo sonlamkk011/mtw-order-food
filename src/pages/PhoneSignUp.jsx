@@ -3,6 +3,7 @@ import { authentication } from "./firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
 import TextField from '@mui/material/TextField';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -13,6 +14,7 @@ const PhoneSignUp = () => {
     const [fullName, setFullName] = useState("");
     const [expandForm, setExpandForm] = useState(false);
     const [OTP, setOTP] = useState('')
+    const history = useHistory();
 
 
 
@@ -59,6 +61,11 @@ const PhoneSignUp = () => {
             });
         }
     }
+    const handleVerify = () => {
+        if(setOTP(666666) ) {
+            history.push("/checkout")
+        } 
+    }
     return (
         <>
             <div className='formContainer'>
@@ -96,7 +103,7 @@ const PhoneSignUp = () => {
                                 <label htmlFor='otpInput' className='form-label'>OTP</label>
                                 <input type="number" className="form-control" id="otpInput" value={OTP} onChange={verify} />
                                 {/* <div id='otpHelp' className='form-text'>dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div> */}
-                                <button type='submit' className='btn btn-primary' style={{ marginTop: "10px" }}>Verify</button>
+                                <button type='submit' className='btn btn-primary' style={{ marginTop: "10px" }} onClick={handleVerify}>Verify</button>
                             </div>
                         </>
                         :

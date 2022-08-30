@@ -86,7 +86,7 @@ const AuthPage = () => {
       {() => (
         <Form>
           <PhoneInput
-            style={{ marginLeft: "25px" }}
+            // style={{ marginLeft: "25px" }}
             country={'vn'}
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e)}
@@ -100,7 +100,7 @@ const AuthPage = () => {
 
           <p>
             New here?{" "}
-            <Link to="/register" onClick={goToRegister}>
+            <Link to="/register" >
               Sign Up Now!
             </Link>
           </p>
