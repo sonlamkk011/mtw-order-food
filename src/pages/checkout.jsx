@@ -8,7 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import TextField from '@mui/material/TextField';
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 
@@ -26,6 +26,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import { formatCurrencyToVND } from "ulti/formatDate";
 import * as Yup from "yup";
+import PhoneInput from "react-phone-input-2";
 
 const AddressSchema = Yup.object().shape({
   // fullName: Yup.string().required("Full Name is required"),
@@ -41,6 +42,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 const Checkout = () => {
+  const [cart, setCart] = React.useState([]);
   const [fullName, setfullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [orderTime, setOrderTime] = React.useState("");
@@ -58,13 +60,18 @@ const Checkout = () => {
   let { id } = useParams();
   const { user, isLoggedIn } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
+  const [quantity, setQuantity] = React.useState(1);
+
+
+
+
 
   const handleClick = () => {
     setOpenAlerts(true);
   };
 
   const handleClickOpen = () => {
-    if (fullName && phoneNumber && orderTime !== "") {
+    if (fullName && phoneNumber !== "") {
       setOpen(true);
     } else {
       setOpenAlert(true);
@@ -113,7 +120,7 @@ const Checkout = () => {
       body: JSON.stringify({
         foods: newArr,
         fullName: fullName,
-        mealTime: orderTime,
+        // mealTime: orderTime,
         note: note,
         phone: phoneNumber
       })
@@ -133,9 +140,22 @@ const Checkout = () => {
       });
   };
 
-  const handleRemoveItem = (items) => {
+  const handleChange = (items) => {
+    // const ind = cart.indexOf(items);
+    // const arr = cart;
+    // setQuantity(items)
+    // // arr[ind].quantity = items;
 
-  }
+    // if (arr[ind].quantity === 0) arr[ind].quantity = 1;
+    // setCart([...arr]);
+    if (items == "+") {
+      setQuantity(quantity + 1);
+    } else if (items == "-" && quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+
   const handleRemove = (items) => {
     return removeCart(dispatch, items);
   };
@@ -178,7 +198,7 @@ const Checkout = () => {
               <div className="order-details" >
                 <div className="detail-container">
                   <ul className="timeline"></ul>
-                  <div className="detail-container">
+                  {/* <div className="detail-container">
                     <h2>Sign In now!</h2>
                     <div className="auth-message">
                       {isLoggedIn ? (
@@ -204,7 +224,7 @@ const Checkout = () => {
                         <i className="rsc-icon-arrow_forward" />
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                   <h2>Personal Information</h2>
                   <Formik
                     initialValues={{
@@ -245,8 +265,18 @@ const Checkout = () => {
                             component={Input}
                             style={{ outline: "none" }}
                           />
+                          {/* <PhoneInput
+                            style={{ marginLeft: "25px" }}
+                            country={'vn'}
+                            value={phoneNumber.value}
+                            onChange={handleChangePhone}
+                            component={Input}
+                            // style={{ outline: "none" }}
+
+
+                          /> */}
                         </div>
-                        <div style={{ marginBottom: "10px" }}>
+                        {/* <div style={{ marginBottom: "10px" }}>
 
                           <TextField
 
@@ -263,7 +293,7 @@ const Checkout = () => {
                             sx={{ width: 150 }}
                             style={{ display: "flex", justifyContent: "center" }}
                           />
-                        </div>
+                        </div> */}
                         <Field
                           name="note"
                           type="text"
@@ -415,18 +445,17 @@ const Checkout = () => {
                             {formatCurrencyToVND(product.price)}
                           </p>
                         </div>
-                        <div className="stepper-input" style={{marginRight:"25px"}}>
-                          <button style={{borderRadius:"999px"}} onClick={handleRemoveItem}>–</button>
+                        <div className="stepper-input" style={{ marginRight: "25px" }}>
+                          <button style={{ borderRadius: "999px" }} onClick={() => handleChange("-")}>–</button>
                           <input
                             type="number"
                             className="quantity"
-                            value={product.quantity}
-                            style={{borderRadius:"999px", height:"40px"}}
-                            >
-                            
-
-                             </input>
-                          <button style={{borderRadius:"999px"}} >+</button>
+                            value={quantity}
+                            style={{ borderRadius: "999px", height: "40px" }}
+                            onChange={() => setQuantity(product.quantity)}
+                          >
+                          </input>
+                          <button style={{ borderRadius: "999px" }} onClick={() => handleChange("+")}>+</button>
                         </div>
                         <button
                           className="product-remove"
@@ -453,7 +482,7 @@ const Checkout = () => {
                 <ul className="total-breakup">
                   <li>
                     <h2>Total :</h2>
-                    <h2>{formatCurrencyToVND(total)}</h2>
+                    <h2>{formatCurrencyToVND(total * quantity)}</h2>
                   </li>
                 </ul>
               </div>
