@@ -52,14 +52,14 @@ export const getProducts = (dispatch) => {
   dispatch({
     type: "GET_PRODUCTS_REQUEST"
   });
-  const url = "https://order-foods.herokuapp.com/api/v1/foods/list";
+  const url = "http://13.213.7.133/api/v1/foods";
   axios
     .get(url)
     .then((response) => {
       dispatch({
         type: "GET_PRODUCTS_SUCCESS",
         payload: {
-          products: response.data.data.Pageable.content
+          products: response.data.data.content
         }
       });
     })

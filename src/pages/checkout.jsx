@@ -6,9 +6,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import Slide from "@mui/material/Slide";
-import TextField from '@mui/material/TextField';
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 
@@ -23,10 +26,10 @@ import {
   CheckoutDispatchContext,
   CHECKOUT_STEPS, saveShippingAddress, setCheckoutStep
 } from "contexts/checkout";
+import publicService from "contexts/PublicService";
 import { Field, Form, Formik } from "formik";
 import { formatCurrencyToVND } from "ulti/formatDate";
 import * as Yup from "yup";
-import PhoneInput from "react-phone-input-2";
 
 const AddressSchema = Yup.object().shape({
   // fullName: Yup.string().required("Full Name is required"),
@@ -40,9 +43,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const TRIP_TYPE = {
+  ONEWAY: 1,
+  ROUNDTRIP: 2,
+};
 
 const Checkout = () => {
   const [cart, setCart] = React.useState([]);
+  const [checkbox, setCheckbox] = React.useState(TRIP_TYPE.ONEWAY);
+  const [checkbox1, setCheckbox1] = React.useState(false);
+
+  const [address, setAddress] = React.useState("");
   const [fullName, setfullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [orderTime, setOrderTime] = React.useState("");
@@ -63,8 +74,19 @@ const Checkout = () => {
   const [quantity, setQuantity] = React.useState(1);
 
 
+  const handleCheckbox = () => {
+    setCheckbox1(false);
+    setAddress(false);
+    setCheckbox(true);
+  }
+
+  const handleShiping = (ev) => {
+    // setCheckbox(true);
+    setCheckbox1(true);
+    setCheckbox(false);
 
 
+  }
 
   const handleClick = () => {
     setOpenAlerts(true);
@@ -104,40 +126,64 @@ const Checkout = () => {
   const handleChangeOrderTime = (ev) => {
     setOrderTime(ev.target.value);
   }
+  const handleChangeAddress = (ev) => {
+    setAddress(ev.target.value);
+  }
 
-  const orderNow = () => {
+
+  const orderNow = async () => {
     setOpenAlerts(true);
     setOpen(false);
     const newArr = [];
     items.map((e) => {
       newArr.push({ foodId: e.id, quantity: e.quantity });
     });
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        foods: newArr,
-        fullName: fullName,
-        // mealTime: orderTime,
-        note: note,
-        phone: phoneNumber
-      })
-    };
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     foods: newArr,
+    //     shipName: fullName,
+    //     // mealTime: orderTime,
+    //     note: note,
+    //     shipPhone: phoneNumber
+    //   })
+    // };
 
-    fetch("https://order-foods.herokuapp.com/api/v1/orders/create", options)
-      .then((response) => response.json())
-      .then((products) => {
-        setProducts(products);
-        console.log("dasdsadsa", products);
+    // fetch("http://13.213.7.133/api/v1/orders", options)
+    await publicService.createOrder({
+      note: note,
+      shipAddress: address,
+      // foods: newArr,
+      shipName: fullName,
+      // mealTime: orderTime,
+      shipPhone: phoneNumber,
+      shipType: "RESTAURANT"
+    })
+      .then((response) => {
+        if (response != null) {
+
+          console.log('response', response)
+        }
+        // return response.json()
+        //  history.push(`/order-details/${response.data.id}`);
         localStorage.removeItem("cartItems");
-        history.push(`/order-details/${products.id}`);
-        products.push(`/order-management/${products.id}`);
-      })
-      .catch((err) => {
-        console.log(err);
+
+
       });
+
+    // .then((products) => {
+    //   setProducts(products);
+    //   console.log("dasdsadsa", products);
+    //   localStorage.removeItem("cartItems");
+    //   history.push(`/order-details/${products.id}`);
+    //   products.push(`/order-management/${products.id}`);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   };
 
   const handleChange = (items) => {
@@ -189,10 +235,7 @@ const Checkout = () => {
           >
             Checkout
           </h1>
-
-
           <div className="row">
-
             <div className="col-lg-8">
 
               <div className="order-details" >
@@ -226,6 +269,37 @@ const Checkout = () => {
                     </div>
                   </div> */}
                   <h2>Personal Information</h2>
+                  <FormControl>
+                    {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel> */}
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        // checked={TRIP_TYPE.ONEWAY == true}
+                        checked={checkbox == true}
+                        value={checkbox}
+                        control={<Radio />}
+                        label="Ăn tại quán"
+                        // checked={checkbox === TRIP_TYPE.ONEWAY}
+                        onChange={handleCheckbox}
+
+                      />
+
+                      <FormControlLabel
+                        // checked={TRIP_TYPE.ONEWAY == false}
+                        // checked={checkbox1 === TRIP_TYPE.ROUNDTRIP}
+                        value={TRIP_TYPE.ROUNDTRIP}
+                        control={<Radio />}
+                        label="Shipping"
+                        onChange={handleShiping}
+
+                      />
+
+
+                    </RadioGroup>
+                  </FormControl>
                   <Formik
                     initialValues={{
                       fullName: "",
@@ -265,17 +339,18 @@ const Checkout = () => {
                             component={Input}
                             style={{ outline: "none" }}
                           />
-                          {/* <PhoneInput
-                            style={{ marginLeft: "25px" }}
-                            country={'vn'}
-                            value={phoneNumber.value}
-                            onChange={handleChangePhone}
-                            component={Input}
-                            // style={{ outline: "none" }}
 
 
-                          /> */}
                         </div>
+                        <Field
+                          disabled={checkbox1 == false}
+                          name="addressLine"
+                          type="text"
+                          placeholder="Door No. & Street"
+                          value={address.value}
+                          component={Input}
+                          onChange={handleChangeAddress}
+                        />
                         {/* <div style={{ marginBottom: "10px" }}>
 
                           <TextField
@@ -312,7 +387,7 @@ const Checkout = () => {
                             style={{
                               backgroundColor: "lime",
                               color: "black",
-                              marginTop: "85px"
+                              marginTop: "35px"
                             }}
                           >
                             <i className="rsc-icon-arrow_back" /> Shoping
@@ -436,9 +511,10 @@ const Checkout = () => {
                 <ul className="cart-items">
                   {items.map((product) => {
                     total += product.quantity * product.price;
+                    // var {quantity} = product.quantity > 0 ? product : product;
                     return (
                       <li className="cart-item" key={product.name}>
-                        <img className="product-image" src={product.image} />
+                        <img className="product-image" src={product.images} />
                         <div className="product-info">
                           <p className="product-name">{product.name}</p>
                           <p className="product-price">
@@ -452,7 +528,7 @@ const Checkout = () => {
                             className="quantity"
                             value={quantity}
                             style={{ borderRadius: "999px", height: "40px" }}
-                            onChange={() => setQuantity(product.quantity)}
+                            onChange={() => setQuantity(quantity)}
                           >
                           </input>
                           <button style={{ borderRadius: "999px" }} onClick={() => handleChange("+")}>+</button>

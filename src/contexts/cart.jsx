@@ -1,5 +1,6 @@
 import React, { useReducer, createContext, useEffect } from "react";
 import useLocalStorage from "hooks/useLocalStorage";
+import publicService from "./PublicService";
 
 const initialState = {
   isCartOpen: false,
@@ -78,6 +79,14 @@ export const removeFromCart = (dispatch, cartItemId) => {
     }
   });
 };
+export const AddItems = (dispatch, items) => {
+  return dispatch({
+    type: "Add_Items",
+    payload: {
+      items: items.quantity
+    }
+  })
+}
 
 export const removeCart = (dispatch, items) => {
   return dispatch({
@@ -110,7 +119,6 @@ const CartProvider = ({ children }) => {
   return (
     <CartDispatchContext.Provider value={dispatch}>
       <CartStateContext.Provider value={state}>
-        
         {children}
       </CartStateContext.Provider>
     </CartDispatchContext.Provider>

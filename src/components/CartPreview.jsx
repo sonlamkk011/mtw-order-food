@@ -1,17 +1,10 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
 import classNames from "classnames";
 import {
-  CartStateContext,
-  CartDispatchContext,
-  removeFromCart,
+  CartDispatchContext, CartStateContext, removeFromCart,
   toggleCartPopup
 } from "contexts/cart";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import Alert from "@mui/material/Alert";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { formatCurrencyToVND } from "ulti/formatDate";
 
 const CartPreview = () => {
@@ -57,7 +50,7 @@ const CartPreview = () => {
           {items.map((product) => {
             return (
               <li className="cart-item" key={product.name}>
-                <img className="product-image" src={product.image} />
+                <img className="product-image" src={product.images} />
                 <div className="product-info">
                   <p className="product-name">{product.name}</p>
                   <p className="product-price">

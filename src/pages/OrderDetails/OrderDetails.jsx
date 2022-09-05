@@ -27,7 +27,7 @@ const OrderDetails = () => {
   }, []);
 
   const getProducts = () => {
-    fetch(`https://order-foods.herokuapp.com/api/v1/orders/${id}`)
+    fetch(`http://13.213.7.133/api/v1/orders/${id}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

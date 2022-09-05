@@ -50,7 +50,15 @@ const Home = () => {
         <div className="products">
           {isLoaded &&
             productsList.map((data) => {
-              return <ProductCard key={data.id} data={data} />;
+              if (data.status == "DELETED") {
+              } 
+              
+              else if (data.status == "DEACTIVE") {
+              } 
+              
+              else {
+                return <ProductCard key={data.id} data={data} />;
+              }
             })}
         </div>
       </div>
