@@ -41,6 +41,33 @@ class PublicService {
 
   };
 
+  createShoppingCart = async  () => {
+  try {
+      return await fetch(BASE_URL_SERVER +API_ENDPOINT.SHOPPING_CART, {
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${API_ENDPOINT.ACCESS_AUTH_TOKEN}`,
+        },
+      }).then(res=>res.json())
+    } catch (error) {
+      console.log('error', error);
+      return null
+    }
+  // axios.get(BASE_URL_SERVER + API_ENDPOINT.SHOPPING_CART, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     'Authorization': `Bearer ${API_ENDPOINT.ACCESS_AUTH_TOKEN}`
+  //   }
+  //   .then(response => {
+  //     console.log(response);
+  //   })
+  //   .then(error => {
+  //     console.log(error);
+  //   })
+  // })
+  }
+
+
   createOrder = async (options) => {
     try {
 

@@ -3,12 +3,16 @@ import {
   CartDispatchContext, CartStateContext, removeFromCart,
   toggleCartPopup
 } from "contexts/cart";
-import React, { useContext } from "react";
+import publicService from "contexts/PublicService";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { formatCurrencyToVND } from "ulti/formatDate";
 
 const CartPreview = () => {
   const [open, setOpen] = React.useState(false);
+  const [cartItems, setCartItems] = React.useState([]);
+
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -16,6 +20,7 @@ const CartPreview = () => {
   const handleClose = (event, reason) => {
     setOpen(false);
   };
+  
 
   const { items, isCartOpen } = useContext(CartStateContext);
   const dispatch = useContext(CartDispatchContext);
@@ -35,9 +40,21 @@ const CartPreview = () => {
     
   };
 
+  const shoppingCart = async ()  => {
+  const cartItems = await publicService.createShoppingCart()
+  .then((response) => response)
+  setCartItems(cartItems.data)
+  
+  }
+  
+  useEffect(() => {
+    shoppingCart()
+    console.log(cartItems)
+  }, [])
+  
   return (
     <div className={classNames("cart-preview", { active: isCartOpen })}>
-      {items == "" ? (
+      {cartItems == "" ? (
         <div className="empty-cart">
           <img
             src="https://res.cloudinary.com/sivadass/image/upload/v1495427934/icons/empty-cart.png"
@@ -47,29 +64,29 @@ const CartPreview = () => {
         </div>
       ) : (
         <ul className="cart-items">
-          {items.map((product) => {
+          {cartItems?.data?.map((product) => {
             return (
-              <li className="cart-item" key={product.name}>
-                <img className="product-image" src={product.images} />
+              <li className="cart-item" key={product.items.id}>
+                <img className="product-image" src={product.items.images} />
                 <div className="product-info">
-                  <p className="product-name">{product.name}</p>
+                  <p className="product-name">{product.items.name}</p>
                   <p className="product-price">
-                    {formatCurrencyToVND(product.price)}
+                    {formatCurrencyToVND(product.items.unitPrice)}
                   </p>
                 </div>
                 <div className="product-total">
                   <p className="quantity">
-                    {`${product.quantity} ${
-                      product.quantity > 1 ? "Nos." : "No."
+                    {`${product.items.quantity} ${
+                      product.items.quantity > 1 ? "Nos." : "No."
                     }`}
                   </p>
                   <p className="amount">
-                    {formatCurrencyToVND(product.quantity * product.price)}{" "}
+                    {formatCurrencyToVND(product.items.quantity * product.items.unitPrice)}{" "}
                   </p>
                 </div>
                 <button
                   className="product-remove"
-                  onClick={() => handleRemove(product.id)}
+                  onClick={() => handleRemove(product.items.id)}
                 >
                   ×
                 </button>

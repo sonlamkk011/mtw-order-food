@@ -18,6 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import publicService from "contexts/PublicService";
 
 const ProductCard = ({ data }) => {
+  const [shoppingCart, setShoppingCart] = React.useState([])
   const [isAdded, setIsAdded] = useState(false);
   const dispatch = useContext(CartDispatchContext);
   const { images, name, price, id, stock } = data;
@@ -30,6 +31,7 @@ const ProductCard = ({ data }) => {
 
   const handleAddToCart = async () => {
     const product = { ...data, quantity: 1 };
+    console.log("product", product);
     addToCart(dispatch, product);
     // const options = {
     //   // method: "POST",
@@ -45,12 +47,13 @@ const ProductCard = ({ data }) => {
     // };
 
     await publicService.shoppingCart({
-      foodId: id,
-      quantity: 1,
-      type: "ADD"
+      'foodId': product.id,
+      'quantity': 1,
+      'type': "ADD"
     })
       .then((res) => {
-        console.log("dsadadadadas", res);
+        // setShoppingCart(res)
+        console.log("🚀 ~ file: Product.jsx ~ line 55 ~ .then ~ res", res)
       })
     // fetch("http://13.213.7.133/api/v1/carts", options)
     setIsAdded(true);
@@ -73,6 +76,7 @@ const ProductCard = ({ data }) => {
   const handleCloseImage = () => {
     setOpenImage(false);
   };
+
   return (
     <div className="product col-lg-4">
       <div>

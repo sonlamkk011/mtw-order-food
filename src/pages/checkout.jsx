@@ -165,7 +165,9 @@ const Checkout = () => {
       .then((response) => {
         if (response != null) {
 
-          console.log('response', response)
+         setProducts(response)
+         console.log("🚀 ~ file: checkout.jsx ~ line 169 ~ .then ~ response", response)
+         
         }
         // return response.json()
         //  history.push(`/order-details/${response.data.id}`);
@@ -294,10 +296,7 @@ const Checkout = () => {
                         control={<Radio />}
                         label="Shipping"
                         onChange={handleShiping}
-
                       />
-
-
                     </RadioGroup>
                   </FormControl>
                   <Formik
